@@ -1,0 +1,26 @@
+*
+{
+    margin: 0;
+    border: 0;
+    padding: 0;
+    transition: none;
+    box-sizing: inherit;
+}
+html
+{
+    box-sizing: border-box;
+}
+body
+{
+    overflow-x: hidden;
+    background-color: rgb(218, 227, 243);
+}
+
+@media (min-width: 610px)
+{
+    body
+    {
+        display: flex;
+        height: 100vh;
+    }
+}
