@@ -113,11 +113,14 @@
 }
 .question-box div
 {
-    display: flex;
     position: absolute;
+    
+    display: flex;
+    text-align: center;
     align-items: center;
     justify-content: center;
 
+    word-wrap: break-word;
     width: var(--box-width);
     height: calc(var(--box-width) - 10px);
 
@@ -131,9 +134,10 @@
 }
 .question-box p
 {
-    padding: 10px;
-    font-family: "Arial";
+    padding: 20px;
+    font-size: 25px;
     font-weight: bold;
+    font-family: "Arial";
 }
 /*#endregion*/
 /*#region Buttons*/
