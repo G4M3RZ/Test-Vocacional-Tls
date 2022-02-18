@@ -1,274 +1,219 @@
 :root
 {
-    --max-with: 300px;
-
+    --name-height: 50px;
     --lightblue: #4874c4;
-    --icon--size: calc(var(--max-with) / 7);
-    --icon--space: 8px;
-}
 
+    --list-size: 280px;
+    --list-item-size: calc(var(--list-size) / 7);
+
+    --dir-vertical: calc(var(--list-item-size) * 0);
+    --dir-horizontal: calc(var(--list-item-size) * 1);
+}
 header
 {
-    width: 100%;
-    max-height: 200px;
-    z-index: 100;
+    /* top: 0; */
+    position: sticky;
+    background: #ffff;
 }
-
-/*#region Username*/
 .username
 {
+    display: block;
+    position: sticky;
+    line-height: 2em;
+
+    color: white;
+    font-size: 30px;
+    text-align: center;
+
     background: rgb(204,53,110);
     background: linear-gradient(145deg, rgba(204,53,110,1) 0%, rgba(139,54,128,1) 100%);
 }
-.username p
-{
-    padding: 15px;
-    font-size: 25px;
-    color: white;
-    text-align: center;
-    font-family: "Arial";
-}
-/*#endregion*/
 
-/*#region Container*/
-.vocation
-{
-    background: white;
-    width: 100%;
-}
-.vocation .container
-{
-    margin: auto;
-    text-align: center;
-
-    width: var(--max-with);
-    height: auto;
-    padding: 0px auto;
-}
-/*#endregion*/
-/*#region Bar*/
-.horizontal-bar
-{
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0px 15px;
-}
-.vertical-bar
-{
-    display: none;
-}
-.horizontal-bar div
-{
-    width: 100%;
-    height: 10px;
-    background: #ffd1f0;
-    border-radius: 10px;
-}
-.vertical-bar div
-{
-    background: #ffd1f0;
-    border-radius: 10px;
-}
-/*#endregion*/
 /*#region List*/
-.vocation ul
+.vocation-list
+{
+    margin: var(--list-item-size) 0 0;
+}
+.vocation-list ul
 {
     display: flex;
     position: relative;
+    justify-content: space-between;
+    
+    margin: 0 auto;
+    width: 280px;
 }
-.vocation ul li
+.vocation-list li
 {
     display: flex;
     list-style: none;
-    justify-content: center;
+    align-items: bottom;
 }
-.vocation img
+.vocation-list img
 {
     width: 100%;
 }
-.vocation .text
+.vocation-list li span
 {
     display: none;
-    font-size: 12px;
-    font-family: 'Arial';
-    color: var(--lightblue);
 }
 /*#endregion*/
-/*#region Indicator*/
-.indicator
+/*#region Bar Indicator*/
+.vocation-list .bar
 {
-    transition: 0.5s;
+    bottom: 100%;
+    display: flex;
     position: absolute;
-    top: -55px;
+    align-items: center;
+    justify-content: center;
 
-    width: var(--icon--size);
-    height: var(--icon--size);
-    padding: var(--icon--space);
+    padding: 0 calc(var(--list-item-size) / 2);
+    
+    width: 100%;
+    height: var(--list-item-size);
 }
-.indicator div
+.vocation-list .bar div
+{
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background: #ffd1f0;
+}
+
+.vocation-list .indicator
+{
+    left: 0;
+    bottom: 100%;
+    position: absolute;
+    padding: 8px;
+
+    width: var(--list-item-size);
+    height: var(--list-item-size);
+
+    transition: transform 0.5s;
+}
+.vocation-list .indicator div
 {
     width: 100%;
     height: 100%;
     background: #d5759c;
-    transform: rotate(-45deg);
     border-radius: 50% 50% 50% 0px;
+    transform: rotate(-45deg);
 }
 /*#endregion*/
 
-/*#region Translate Position*/
-.vocation ul li:nth-child(1).active ~ .indicator
-{
-    transform: translateX(calc(var(--icon--size) * 0));
-}
-.vocation ul li:nth-child(2).active ~ .indicator
-{
-    transform: translateX(calc(var(--icon--size) * 1));
-}
-.vocation ul li:nth-child(3).active ~ .indicator
-{
-    transform: translateX(calc(var(--icon--size) * 2));
-}
-.vocation ul li:nth-child(4).active ~ .indicator
-{
-    transform: translateX(calc(var(--icon--size) * 3));
-}
-.vocation ul li:nth-child(5).active ~ .indicator
-{
-    transform: translateX(calc(var(--icon--size) * 4));
-}
-.vocation ul li:nth-child(6).active ~ .indicator
-{
-    transform: translateX(calc(var(--icon--size) * 5));
-}
-.vocation ul li:nth-child(7).active ~ .indicator
-{
-    transform: translateX(calc(var(--icon--size) * 6));
-}
-/*#endregion*/
-
-@media (min-width: 610px)
+@media (min-width: 925px)
 {
     :root
     {
-        --icon--size: 75px;
-        --icon--space: 20px;
+        --list-size: calc(100vh - 85px);
+        --list-item-size: calc(var(--list-size) / 7);
+
+        --dir-vertical: calc(var(--list-item-size) * 1);
+        --dir-horizontal: calc(var(--list-item-size) * 0);
     }
     header
     {
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        min-height: 100vh;
+        width: 320px;
+        height: 100vh;
+    }
+    .username
+    {
+        font-size: 35px;
     }
 
-    /*#region Container*/
-    .vocation
+    /*#region List*/
+    .vocation-list
     {
+        margin: auto 15px;
+        height: var(--list-size);
+    }
+    .vocation-list ul
+    {
+        display: grid;
+        margin: 0;
+
+        width: 70%;
         height: 100%;
     }
-    .vocation .container
+    .vocation-list img
+    {
+        margin: auto;
+        width: auto;
+        height: 10vh;
+    }
+    .vocation-list li span
     {
         display: flex;
-        width: 300px;
-        min-height: 100%;
-        padding: 20px 15px;
-    }
-    /*#endregion*/
-    /*#region Bar*/
-    .horizontal-bar
-    {
-        display: none;
-    }
-    .vertical-bar
-    {
-        display: flex;
+        text-align: center;
         align-items: center;
         justify-content: center;
-        min-height: 100%;
-        width: 70px;
+        padding: 0 20px;
 
-        padding: 25px 0px;
+        font-size: 12px;
+        color: var(--lightblue);
+
+        width: 100%;
     }
-    .vertical-bar div
+    /*#endregion*/
+    /*#region Bar Indicator*/
+    .vocation-list .bar
+    {
+        left: 100%;
+        bottom: auto;
+        padding: calc(var(--list-item-size) / 2) 0;
+
+        height: 100%;
+        width: var(--list-item-size);
+    }
+    .vocation-list .bar div
     {
         width: 10px;
         height: 100%;
-        background: #ffd1f0;
-        border-radius: 10px;
+        border-radius: 5px;
     }
-    /*#endregion*/
-    /*#region List*/
-    .vocation ul 
+    .vocation-list .indicator
     {
-        display: flex;
-        flex-direction: column;
-        
-        width: 200px;
-        padding-left: 10px;
+        left: 100%;
+        padding: 3.8vh;
+
+        width: var(--list-item-size);
+        height: var(--list-item-size);
     }
-    .vocation ul li
-    {
-        height: var(--icon--size);
-    }
-    .container ul .list div
-    {
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
-    .vocation img
-    {
-        height: 100%;
-    }
-    .vocation .text
-    {
-        display: block;
-        padding: 0 26px;
-        width: 100%;
-    }
-    /*#endregion*/
-    /*#region Indicator*/
-    .indicator
-    {
-        top: 0px;
-        right: -73px;
-    }
-    .indicator div
+    .vocation-list .indicator div
     {
         transform: rotate(45deg);
     }
     /*#endregion*/
-
-    /*#region Translate Position*/
-    .vocation ul li:nth-child(1).active ~ .indicator
-    {
-        transform: translateY(calc(var(--icon--size) * 0));
-    }
-    .vocation ul li:nth-child(2).active ~ .indicator
-    {
-        transform: translateY(calc(var(--icon--size) * 1));
-    }
-    .vocation ul li:nth-child(3).active ~ .indicator
-    {
-        transform: translateY(calc(var(--icon--size) * 2));
-    }
-    .vocation ul li:nth-child(4).active ~ .indicator
-    {
-        transform: translateY(calc(var(--icon--size) * 3));
-    }
-    .vocation ul li:nth-child(5).active ~ .indicator
-    {
-        transform: translateY(calc(var(--icon--size) * 4));
-    }
-    .vocation ul li:nth-child(6).active ~ .indicator
-    {
-        transform: translateY(calc(var(--icon--size) * 5));
-    }
-    .vocation ul li:nth-child(7).active ~ .indicator
-    {
-        transform: translateY(calc(var(--icon--size) * 6));
-    }
-    /*#endregion*/
 }
+
+/*#region Translate Indicator*/
+.vocation-list ul li:nth-child(1).active ~ .indicator
+{
+    transform: translate(calc(var(--dir-horizontal) * 0), calc(var(--dir-vertical) * 1));
+}
+.vocation-list ul li:nth-child(2).active ~ .indicator
+{
+    transform: translate(calc(var(--dir-horizontal) * 1), calc(var(--dir-vertical) * 2));
+}
+.vocation-list ul li:nth-child(3).active ~ .indicator
+{
+    transform: translate(calc(var(--dir-horizontal) * 2), calc(var(--dir-vertical) * 3));
+}
+.vocation-list ul li:nth-child(4).active ~ .indicator
+{
+    transform: translate(calc(var(--dir-horizontal) * 3), calc(var(--dir-vertical) * 4));
+}
+.vocation-list ul li:nth-child(5).active ~ .indicator
+{
+    transform: translate(calc(var(--dir-horizontal) * 4), calc(var(--dir-vertical) * 5));
+}
+.vocation-list ul li:nth-child(6).active ~ .indicator
+{
+    transform: translate(calc(var(--dir-horizontal) * 5), calc(var(--dir-vertical) * 6));
+}
+.vocation-list ul li:nth-child(7).active ~ .indicator
+{
+    transform: translate(calc(var(--dir-horizontal) * 6), calc(var(--dir-vertical) * 7));
+}
+/*#endregion*/

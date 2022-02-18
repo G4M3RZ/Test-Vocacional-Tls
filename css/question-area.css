@@ -13,6 +13,7 @@
 }
 .right-pannel .container
 {
+    display: none;
     width: var(--box-width);
 }
 
@@ -185,7 +186,7 @@
 }
 /*#endregion*/
 
-@media (min-width: 610px)
+@media (min-width: 925px)
 {
     :root
     {

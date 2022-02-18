@@ -9,84 +9,47 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/question-area.css">
+    <link rel="stylesheet" href="css/game.css">
 </head>
 <body>
     <header>
-        <div class="username">
-            <p id="username">Username</p>
-        </div>
-        <div class="vocation">
-            <div class="container">
-                <div class="horizontal-bar">
-                    <div></div>
-                </div>
-                <ul>
-                    <li class="list">
-                        <div>
-                            <span class="icon">
-                                <img src="assets/Imagen1.png">
-                            </span>
-                            <span class="text">Administración y Contabilidad</span>
-                        </div>
-                    </li>
-                    <li class="list active">
-                        <div>
-                            <span class="icon">
-                                <img src="assets/Imagen2.png">
-                            </span>
-                            <span class="text">Humanidades y Ciencias Sociales</span>
-                        </div>
-                    </li>
-                    <li class="list">
-                        <div>
-                            <span class="icon">
-                                <img src="assets/Imagen3.png">
-                            </span>
-                            <span class="text">Artes</span>
-                        </div>
-                    </li>
-                    <li class="list">
-                        <div>
-                            <span class="icon">
-                                <img src="assets/Imagen4.png">
-                            </span>
-                            <span class="text">Medicina y Ciencias de la Salud</span>
-                        </div>
-                    </li>
-                    <li class="list">
-                        <div>
-                            <span class="icon">
-                                <img src="assets/Imagen5.png">
-                            </span>
-                            <span class="text">Ingeniería y Computación</span>
-                        </div>
-                    </li>
-                    <li class="list">
-                        <div>
-                            <span class="icon">
-                                <img src="assets/Imagen6.png">
-                            </span>
-                            <span class="text">Defensa y Seguridad</span>
-                        </div>
-                    </li>
-                    <li class="list">
-                        <div>
-                            <span class="icon">
-                                <img src="assets/Imagen7.png">
-                            </span>
-                            <span class="text">Ciencias Exactas y Agrarias</span>
-                        </div>
-                    </li>
-                    <div class="indicator">
-                        <div></div>
-                    </div>
-                </ul>
-                <div class="vertical-bar">
-                    <div></div>
-                </div>
-            </div>
+        <span class="username" id="username">Username</span>
+        <div class="vocation-list">
+            <ul>
+                <li class="list active">
+                    <img src="assets/header/Imagen1.png">
+                    <span class="text">Administración y Contabilidad</span>
+                </li>
+                <li class="list">
+                    <img src="assets/header/Imagen2.png">
+                    <span class="text">Humanidades y Ciencias Sociales</span>
+                </li>
+                <li class="list">
+                    <img src="assets/header/Imagen3.png">
+                    <span class="text">Artes</span>
+                </li>
+                <li class="list">
+                    <img src="assets/header/Imagen4.png">
+                    <span class="text">Medicina y Ciencias de la Salud</span>
+                </li>
+                <li class="list">
+                    <img src="assets/header/Imagen5.png">
+                    <span class="text">Ingeniería y Computación</span>
+                </li>
+                <li class="list">
+                    <img src="assets/header/Imagen6.png">
+                    <span class="text">Defensa y Seguridad</span>
+                </li>
+                <li class="list">
+                    <img src="assets/header/Imagen7.png">
+                    <span class="text">Ciencias Exactas y Agrarias</span>
+                </li>
+                <div class="bar"><div></div></div>
+                <div class="indicator"><div></div></div>
+            </ul>
         </div>
     </header>
+
     <section class="right-pannel">
         <div class="container">
             <div class="level-progress">
@@ -116,13 +79,15 @@
                 <p>También puedes usar<br>← teclado →</p>
             </div>
         </div>
-    </section>
-    <section class="game">
-
+        <div id="game"></div>
     </section>
 
     <!--Scripts-->
+    <script src="javascript/p5.min.js"></script>
     <script src="javascript/utility.js"></script>
     <script src="javascript/index.js"></script>
+
+    <script src="sketch.js"></script>
+    <script src="javascript/canon-game.js"></script>
 </body>
 </html>
