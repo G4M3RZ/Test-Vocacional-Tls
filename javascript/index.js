@@ -17,6 +17,25 @@ list.forEach(element => element.addEventListener('click', SelectVocation));
 
 //#endregion
 
+//#region Minigame
+var interpolate = document.getElementsByClassName("interpolate");
+var shootButton = document.getElementById('shoot');
+let states = ['enable', 'disable'];
+
+shootButton.addEventListener('click', () => Shoot());
+
+function InterpolateGame()
+{
+    var current = 0;
+    for(i = 0; i < 2; i++)
+    {
+        for(e = 0; e < states.length; e++)
+            interpolate[current].classList.toggle(states[e]);
+        current++;
+    }
+}
+//#endregion
+
 //#region Progress Bar
 var percent = document.getElementById("amount");
 var points = document.getElementsByClassName("progress");
@@ -28,7 +47,7 @@ const SetProgressBar = () =>
     var value = Math.round(Math.min(progress, 100));
     percent.innerHTML = value + "%";
     bar.style.width = value + "%";
-    
+
     var reach = 100 / (points.length - 1);
     var succed = Math.floor(value / reach);
 
@@ -38,30 +57,45 @@ const SetProgressBar = () =>
         {
             points[i].className = points[i].className.replace( /(?:^|\s)uncomplete(?!\S)/g , '');
             points[i].className += " complete";
-        }    
+
+            //Show Mini Game
+            ResetGame('¿Te incluirías en un proyecto nacional de desarrollo de la principal fuente de recursos de tu provincia?');
+            InterpolateGame();
+        }
     }
 };
-
-//testing
-SetProgressBar();
 //#endregion
-
 //#region Question Box
+
+let survey = '';
+let questions = '';
+
+LoadSurvey();
+function LoadSurvey()
+{
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function()
+    {
+        try
+        {
+            survey = JSON.parse(this.responseText).survey;
+            console.log(survey);
+        }
+        catch(e) { console.log(e); }
+    }
+    xhttp.open('GET', 'http://68.183.26.147/api/survey', false);
+    xhttp.send(null);
+}
+
 var qBox = document.getElementById("question-box");
 var box1 = qBox.firstElementChild;
 var box2 = qBox.lastElementChild;
 let currentBox = 0;
 
-const SetBoxStyle = (element, direction, opacity, time) => {
-    element.style.transition = time + "s";
-    element.style.transform = "translateX(" + direction * 100 + "px) rotate(" + direction * 10 + "deg)";
-    element.style.opacity = opacity;
-};
 SetBoxStyle(box2, 0, 0, 0);
-
 async function Swipe(dir, opacity, time)
 {
-    progress+=5;
+    progress+= 100 / (survey.questions.length - 1);
     SetProgressBar();
 
     var element1 = currentBox == 0 ? box1 : box2;
@@ -74,8 +108,13 @@ async function Swipe(dir, opacity, time)
     SetBoxStyle(element2, 0, 1, time);
     currentBox = currentBox == 0 ? 1 : 0;
 }
+function SetBoxStyle(element, direction, opacity, time)
+{
+    element.style.transition = time + "s";
+    element.style.transform = "translateX(" + direction * 100 + "px) rotate(" + direction * 10 + "deg)";
+    element.style.opacity = opacity;
+};
 //#endregion
-
 //#region Select Buttons
 var leftButton = document.getElementById("left");
 var rightButton = document.getElementById("right");

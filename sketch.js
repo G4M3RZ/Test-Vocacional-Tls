@@ -31,7 +31,6 @@ function setup()
 
     message = new Message(width / 2, 16);
     canon = new Canon(width / 2, height, canonImg, baseImg);
-    ResetGame('¿Te incluirías en un proyecto nacional de desarrollo de la principal fuente de recursos de tu provincia?');
 }
 function draw()
 {
@@ -94,5 +93,6 @@ function ResetGame(question)
 async function StopGame()
 {
     await delay(1000);
+    InterpolateGame();
     play = false;
 }

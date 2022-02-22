@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/question-area.css">
-    <link rel="stylesheet" href="css/game.css">
 </head>
 <body>
     <header>
@@ -49,37 +48,47 @@
             </ul>
         </div>
     </header>
+    <section class="question-area">
 
-    <section class="right-pannel">
-        <div class="container">
+        <div class="question-area-container interpolate enable">
             <div class="level-progress">
                 <div class="amount"><p id="amount">0%</p></div>
-                <div class="container">
-                    <div class="bar">
-                        <div id=fill-amount></div>
-                    </div>
-                    <div class="points">
-                        <div class="progress start"></div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar"><div id=fill-amount></div></div>
+
+                    <div class="level-points">
+                        <div class="progress"></div>
                         <div class="progress uncomplete"></div>
                         <div class="progress uncomplete"></div>
                         <div class="progress uncomplete"></div>
-                        <div class="progress end"></div>
+                        <div class="progress"></div>
                     </div>
                 </div>
             </div>
+            
             <div class="question-box" id="question-box">
                 <div><p>Pregunta #1</p></div>
                 <div><p>Pregunta #2</p></div>
             </div>
+
             <div class="buttons">
-                <div id="left"><p style="color: red;">No</p></div>
-                <div id="right"><p style="color: green;">Si</p></div>
+                <span class="button" id="left">No</span>
+                <span class="button" id="right">Si</span>
             </div>
-            <div class="info">
-                <p>También puedes usar<br>← teclado →</p>
+
+            <span class="info">También puedes usar<br>← teclado →</span>
+        </div>
+
+        <div class="game interpolate disable">
+            <div id="game"></div>
+            
+            <div class="game-info">
+                <span class="info">Espacio Dispara</span>
+                <div class="button" id="shoot"><img src="assets/canon-game/cursor.png"></div>
             </div>
         </div>
-        <div id="game"></div>
+
     </section>
 
     <!--Scripts-->

@@ -1,3 +1,15 @@
+:root
+{
+    --light-blue-text: #4874c4;
+    --progress-bar-color: white;
+
+    --red-theme: #ef416f;
+    --green-theme: #31bd38;
+    --dark-red-theme: #ad0f38;
+
+    --button-size: 70px;
+}
+
 *
 {
     margin: 0;
@@ -10,8 +22,26 @@
 }
 body
 {
-    background: #dae3f3;
     overflow-x: hidden;
+    background: #dae3f3;
+}
+
+.button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    cursor: pointer;
+    user-select: none;
+
+    width: var(--button-size);
+    height: var(--button-size);
+    font-size: 3ex;
+
+    background: white;
+    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
 }
 
 @media (min-width: 925px)
@@ -19,6 +49,5 @@ body
     body
     {
         display: flex;
-        height: 100vh;
     }
 }

@@ -1,216 +1,235 @@
-:root
-{
-    --point-size: 15px;
-    --box-width: 280px;
-}
-
-.right-pannel
+.question-area
 {
     display: flex;
+    position: relative;
+    text-align: center;
     align-items: center;
     justify-content: center;
-    margin: 12px 0;
+    padding: 20vw 0;
+
+    width: 100%;
+    min-height: calc(100vh - 166px); 
 }
-.right-pannel .container
+.question-area-container
 {
-    display: none;
-    width: var(--box-width);
+    display: block;
+    overflow: hidden;
+    visibility: visible;
+
+    margin: 0 auto;
+    padding: 10px;
+
+    width: 350px;
+    min-width: 280px;
+    max-width: 350px;
+}
+.game
+{
+    display: block;
+    position: absolute;
+    visibility: hidden;
+}
+.enable
+{
+    animation-name: fade-in;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+.disable
+{
+    animation-name: fade-out;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+@keyframes fade-in
+{
+    from { opacity: 0%; }
+    to { visibility: visible; opacity: 100%; }
+}
+@keyframes fade-out
+{
+    from { opacity: 100%; }
+    to { visibility: hidden; opacity: 0%; }
 }
 
-/*#region Progress Bar*/
+/*#region Level Progress Bar*/
 .level-progress
 {
+    margin: 10px 0;
     display: flex;
-
-    width: var(--box-width);
-    height: 50px;
-    padding: 10px 13px;
-
-    background-color: rgb(239, 65, 111);
+    background: #ef416f;
     box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
     border-radius: 2px;
 }
-
-/*value*/
-.level-progress .amount
+.amount
 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 80px;
-    text-align: center;
-    background-color: rgb(173, 15, 56);
-    border-radius: 2px;
+    width: 30%;
+    max-width: 80px;
+    margin: 10px 15px;
+    background: #ad0f38;
 }
-.level-progress .amount p
+.amount p
 {
-    color: white;
     font-size: 20px;
-    font-family: "Arial";
+    line-height: 1.8em;
+    color: white;
 }
-
-/*bar*/
-.level-progress .container
+.progress-bar-container
 {
     display: flex;
-    align-items: center;
-
     position: relative;
-    width: 100%;
-    height: 100%;
+    align-items: center;
+    
+    width: 70%;
+    margin: 0 15px 0 0;
 }
-.level-progress .bar
+.progress-bar
 {
     width: 100%;
-    height: 6px;
-    margin: 0 calc(var(--point-size) * 1.5);
-
-    background-color: rgb(173, 15, 56);
-    border-radius: 10px;
+    height: 8px;
+    background: #ad0f38;
+    border-radius: 5px;
 }
-.level-progress .bar div
+#fill-amount
 {
     width: 0%;
     height: 100%;
-    transition: 0.5s;
-
-    background-color: white;
-    border-radius: 10px;
+    background: white;
+    transition: width 0.5s;
+    border-radius: 5px;
 }
-
-/*points*/
-.level-progress .points
+.level-points
 {
+    width: 100%;
+    height: 100%;
+
     display: flex;
+    position: absolute;
     align-items: center;
     justify-content: space-between;
-
-    position: absolute;
-    padding: 0 15px;
-    width: 100%;
 }
-.points .progress
+.progress
 {
-    width: var(--point-size);
-    height: var(--point-size);
-    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
 }
 .progress.complete
 {
-    background-color: white;
+    background: white;
 }
 .progress.uncomplete
 {
-    background-color: rgb(173, 15, 56);
+    background: #ad0f38;
 }
 /*#endregion*/
-/*#region Question Area*/
+/*#region Question Box*/
 .question-box
 {
-    margin: 12px 0;
     position: relative;
-    height: calc(var(--box-width) - 10px);
+}
+.question-box::after
+{
+    content: "";
+    display: block;
+    padding-bottom: 90%;
 }
 .question-box div
 {
-    position: absolute;
-    
     display: flex;
+    position: absolute;
+
     text-align: center;
     align-items: center;
     justify-content: center;
 
-    word-wrap: break-word;
-    width: var(--box-width);
-    height: calc(var(--box-width) - 10px);
+    width: 100%;
+    height: 100%;
+    padding: 20px;
 
-    background-color: white;
+    background: white;
     box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
 
-    transition: 0.5s;
+    transition: transform 0.5s;
     transform: translateX(0px) rotateZ(0deg);
     opacity: 100%;
 }
 .question-box p
 {
-    padding: 20px;
-    font-size: 25px;
+    font-size: 3ex;
     font-weight: bold;
-    font-family: "Arial";
 }
 /*#endregion*/
-/*#region Buttons*/
+/*#region Swipe Buttons*/
 .buttons
 {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    margin: 20px 0;
 }
-.buttons div
+.buttons #left
 {
-    width: 60px;
-    height: 60px;
-    margin: auto;
-    
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    background-color: white;
-    box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
+    color: #ef416f;
 }
-.buttons p
+.buttons #right
 {
-    font-size: 25px;
-    user-select: none;
-    font-family: "Arial";
+    color: #31bd38;
 }
-/*#endregion*/
-
-/*#region Info*/
 .info
 {
     display: none;
-    margin-top: 20px;
 }
-.info p
+/*#endregion*/
+
+/*#region Game Button*/
+.game-info
 {
-    font-size: 25px;
-    text-align: center;
-    font-family: Arial;
-    color:dodgerblue;
+    margin: 10px auto 0;
 }
+#shoot
+{
+    margin: 0 auto;
+}
+#shoot img
+{
+    height: 70%;
+}
+
 /*#endregion*/
 
 @media (min-width: 925px)
 {
-    :root
+    .question-area
     {
-        --box-width: 300px;
+        min-height: 100vh;
+        padding: 0;
     }
-    .right-pannel
+    .question-area-container
     {
-        width: 100%;
+        overflow: visible;
     }
 
-    /*#region Progress Bar*/
-    .level-progress
+    .amount
     {
-        height: 70px;
+        margin: 15px 15px;
     }
-    .level-progress .amount
+    .amount p
     {
-        width: 110px;
+        font-size: 22px;
+        line-height: 2.3em;
     }
-    /*#endregion*/
-    /*#region Info*/
+
     .info
     {
-        display: block;
+        display: inline;
+        font-size: 22px;
+        font-weight: lighter;
+        color: #4874c4;
     }
-    /*#endregion*/
+
+    #shoot
+    {
+        display: none;
+    }
 }

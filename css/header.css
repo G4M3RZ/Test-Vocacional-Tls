@@ -114,8 +114,8 @@ header
     }
     header
     {
-        width: 320px;
         height: 100vh;
+        min-width: 320px;
     }
     .username
     {
