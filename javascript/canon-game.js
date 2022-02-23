@@ -96,8 +96,8 @@ class Canon
 {
     constructor(x, y, canon, base)
     {
-        this.width = 40;
-        this.height = 80;
+        this.width = 35;
+        this.height = 65;
         
         this.x = x;
         this.y = y - this.height / 2;

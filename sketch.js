@@ -1,4 +1,4 @@
-let width = 280, height = 400;
+let width = 260, height = 350;
 let play = false;
 let stopDelay = false;
 
