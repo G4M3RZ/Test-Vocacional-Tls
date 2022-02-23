@@ -13,6 +13,7 @@ function SelectVocation(/*value*/)
     // }
 }
 
+//test
 list.forEach(element => element.addEventListener('click', SelectVocation));
 
 //#endregion
@@ -38,8 +39,8 @@ function InterpolateGame()
 
 //#region Progress Bar
 var percent = document.getElementById("amount");
-var points = document.getElementsByClassName("progress");
 var bar = document.getElementById("fill-amount");
+var points = document.getElementsByClassName("progress");
 let progress = 0;
 
 const SetProgressBar = () =>
@@ -71,8 +72,15 @@ let survey = '';
 let questions = '';
 
 LoadSurvey();
-function LoadSurvey()
+async function LoadSurvey()
 {
+    // fetch('../php/survey.php')
+    //     .then(data => console.log(data.text()))
+    //     .catch(error => console.error('Error:', error));
+
+    // survey = await fetch('../php/survey.php');
+    // console.log(survey);
+
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function()
     {
@@ -83,7 +91,7 @@ function LoadSurvey()
         }
         catch(e) { console.log(e); }
     }
-    xhttp.open('GET', 'http://68.183.26.147/api/survey', false);
+    xhttp.open('GET', 'https://tlsvocacional.renzoguido.com/api/survey', false);
     xhttp.send(null);
 }
 
@@ -95,7 +103,8 @@ let currentBox = 0;
 SetBoxStyle(box2, 0, 0, 0);
 async function Swipe(dir, opacity, time)
 {
-    progress+= 100 / (survey.questions.length - 1);
+    //Add progress amount
+    progress += 100 / survey.questions.length;
     SetProgressBar();
 
     var element1 = currentBox == 0 ? box1 : box2;
