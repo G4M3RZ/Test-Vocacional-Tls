@@ -1,4 +1,4 @@
-let width = 280, height = 450;
+let width = 280, height = 400;
 let play = false;
 let stopDelay = false;
 
@@ -9,6 +9,7 @@ let bullet;
 let itemsLeft;
 let itemsRight;
 //#endregion
+
 //#region Images
 let canonImg;
 let baseImg;

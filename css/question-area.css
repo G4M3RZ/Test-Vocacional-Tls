@@ -5,10 +5,10 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    padding: 20vw 0;
+    /* padding: 20vw 0; */
 
     width: 100%;
-    min-height: calc(100vh - 166px); 
+    min-height: calc(100vh - 166.39px);
 }
 .question-area-container
 {

@@ -103,7 +103,7 @@ class Canon
         this.y = y - this.height / 2;
 
         this.angle = 0;
-        this.speed = 2;
+        this.speed = 1;
         this.maxAngle = 45;
         this.direction = 1;
 
