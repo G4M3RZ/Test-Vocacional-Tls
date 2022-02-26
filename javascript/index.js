@@ -1,121 +1,120 @@
 //#region Header
-
 const list = document.querySelectorAll('.list');
-//SelectVocation(0);
-function SelectVocation(/*value*/)
+
+function SelectVocation(index)
 {
-    list.forEach((item) => item.classList.remove('active'));
-    this.classList.add('active');
-    // for(i = 0; i < list.length; i++)
-    // {
-    //     if(i != value) list[i].classList.remove('active');
-    //     else list[i].classList.add('active');
-    // }
-}
+    AddCategory(web_questions[index].subcategory.id);
 
-//test
-list.forEach(element => element.addEventListener('click', SelectVocation));
+    //Move Slider To Biggest Number
+    var max = Math.max.apply(null, web_category);
+    var index = web_category.indexOf(max);
 
-//#endregion
-
-//#region Minigame
-var interpolate = document.getElementsByClassName("interpolate");
-var shootButton = document.getElementById('shoot');
-let states = ['enable', 'disable'];
-
-shootButton.addEventListener('click', () => Shoot());
-
-function InterpolateGame()
-{
-    var current = 0;
-    for(i = 0; i < 2; i++)
+    for(i = 0; i < list.length; i++)
     {
-        for(e = 0; e < states.length; e++)
-            interpolate[current].classList.toggle(states[e]);
-        current++;
+        if(i != index) list[i].classList.remove('active');
+        else list[i].classList.add('active');
     }
 }
 //#endregion
 
 //#region Progress Bar
-var percent = document.getElementById("amount");
-var bar = document.getElementById("fill-amount");
-var points = document.getElementsByClassName("progress");
+const percent = document.getElementById("amount");
+const levels = document.getElementsByClassName("progress");
+const bar = document.getElementById("fill-amount");
 let progress = 0;
 
-const SetProgressBar = () =>
+function SetProgressBar()
 {
-    var value = Math.round(Math.min(progress, 100));
-    percent.innerHTML = value + "%";
-    bar.style.width = value + "%";
+    progress += 100 / totalQuestions;
 
-    var reach = 100 / (points.length - 1);
-    var succed = Math.floor(value / reach);
+    let value = Math.round(Math.min(progress, 100));
+    percent.innerHTML = bar.style.width = value + "%";
 
-    for(i = 1; i <= succed; i++)
+    let reach = 100 / (levels.length - 1);
+    let succed = Math.floor(value / reach);
+
+    //Show Mini Game
+    for(let i = 1; i <= succed; i++)
     {
-        if(points[i].classList.contains('uncomplete'))
+        if(levels[i].classList.contains('uncomplete'))
         {
-            points[i].className = points[i].className.replace( /(?:^|\s)uncomplete(?!\S)/g , '');
-            points[i].className += " complete";
+            levels[i].classList.replace('uncomplete', 'complete');
 
-            //Show Mini Game
-            ResetGame('¿Te incluirías en un proyecto nacional de desarrollo de la principal fuente de recursos de tu provincia?');
+            let start = currentQuestion;
+            let end = start + gameQuestions;
+            let questions = [];
+
+            //Add Minigame Questions
+            for(let j = start; j < end; j++)
+            {
+                questions.push(web_questions[j]);
+                currentQuestion++;
+            }
+
+            ResetGame(questions);
             InterpolateGame();
         }
     }
 };
 //#endregion
-//#region Question Box
 
-let survey = '';
-let questions = '';
+//#region Minigame
+let playing = false;
 
-LoadSurvey();
-async function LoadSurvey()
+const interpolate = document.getElementsByClassName("interpolate");
+const shootButton = document.getElementById('shoot');
+shootButton.addEventListener('click', () => Shoot());
+
+function InterpolateGame()
 {
-    // fetch('../php/survey.php')
-    //     .then(data => console.log(data.text()))
-    //     .catch(error => console.error('Error:', error));
-
-    // survey = await fetch('../php/survey.php');
-    // console.log(survey);
-
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function()
+    for(i = 0; i < interpolate.length; i++)
     {
-        try
-        {
-            survey = JSON.parse(this.responseText).survey;
-            console.log(survey);
-        }
-        catch(e) { console.log(e); }
+        let active = interpolate[i].classList.contains('enable');
+        interpolate[i].classList.replace(active ? 'enable' : 'disable', active ? 'disable' : 'enable');
     }
-    xhttp.open('GET', 'https://tlsvocacional.renzoguido.com/api/survey', false);
-    xhttp.send(null);
 }
+//#endregion
 
-var qBox = document.getElementById("question-box");
-var box1 = qBox.firstElementChild;
-var box2 = qBox.lastElementChild;
+//#region Question Box
+const qBox = document.getElementById("question-box");
+const box1 = qBox.firstElementChild;
+const box2 = qBox.lastElementChild;
 let currentBox = 0;
 
 SetBoxStyle(box2, 0, 0, 0);
 async function Swipe(dir, opacity, time)
 {
+    if(progress >= 100 || web_questions == null || playing) return;
+
+    //Category Base on Id
+    var value = dir > 0;
+    if(value) SelectVocation(currentQuestion);
+    AddAnswer(web_questions[currentQuestion].id, value ? 1 : 0);
+
     //Add progress amount
-    progress += 100 / survey.questions.length;
+    currentQuestion++;
     SetProgressBar();
 
-    var element1 = currentBox == 0 ? box1 : box2;
-    var element2 = currentBox == 0 ? box2 : box1;
+    //Swipe effect
+    let element1 = currentBox == 0 ? box1 : box2;
+    let element2 = currentBox == 0 ? box2 : box1;
     SetBoxStyle(element1, dir, opacity, time);
     SetBoxStyle(element2, 0, 0, 0);
 
+    //Await to complete minigame
+    await until(() => playing == false);
+
+    //Swipe Delay
+    if(progress >= 100) { PostSurvey(); return; };
     await delay(time * 100);
 
-    SetBoxStyle(element2, 0, 1, time);
     currentBox = currentBox == 0 ? 1 : 0;
+    SetBoxText(element2, web_questions[currentQuestion].title);
+    SetBoxStyle(element2, 0, 1, time);
+}
+function SetBoxText(box, text)
+{
+    box.firstElementChild.innerHTML = text;
 }
 function SetBoxStyle(element, direction, opacity, time)
 {
@@ -124,16 +123,17 @@ function SetBoxStyle(element, direction, opacity, time)
     element.style.opacity = opacity;
 };
 //#endregion
+
 //#region Select Buttons
-var leftButton = document.getElementById("left");
-var rightButton = document.getElementById("right");
+const leftButton = document.getElementById("left");
+const rightButton = document.getElementById("right");
 
 leftButton.addEventListener('click', () => Swipe(-1, 0, 0.5));
 rightButton.addEventListener('click', () => Swipe(1, 0, 0.5));
 
 document.addEventListener('keydown', (event) =>
 {
-    var key = event.key;
+    let key = event.key;
     if(key === 'ArrowLeft') Swipe(-1, 0, 0.5);
     else if(key === 'ArrowRight') Swipe(1, 0, 0.5);
 });

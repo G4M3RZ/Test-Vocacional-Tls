@@ -4,7 +4,8 @@ class Message
     {
         this.x = x;
         this.y = 10;
-        this.text = "";
+        this.text = [];
+        this.current = 0;
         this.size = size;
     }
     show()
@@ -13,35 +14,42 @@ class Message
         textStyle(BOLD);
         textAlign(CENTER, TOP);
         textSize(this.size);
-        text(this.text, this.x, this.y);
+        text(this.text[this.current], this.x, this.y);
     }
-    wrap(text, maxWidth)
+    wrap(questions, maxWidth)
     {
-        var line = '';
-        var split = 0;
+        this.text = [];
+        this.current = 0;
 
-        for(var i = 0; i < text.length; i++)
+        for(var q = 0; q < questions.length; q++)
         {
-            var c = text.charAt(i);
-            
-            if(split < maxWidth) split ++;
-            else if(c == ' ')
+            var text = questions[q].title;
+            var line = '';
+            var split = 0;
+    
+            for(var i = 0; i < text.length; i++)
             {
-                c = '\n';
-                split = 0;
+                var c = text.charAt(i);
+                
+                if(split < maxWidth) split ++;
+                else if(c == ' ')
+                {
+                    c = '\n';
+                    split = 0;
+                }
+    
+                line += c;
             }
-
-            line += c;
+    
+            this.text.push(line);
         }
-
-        this.text = line;
     }
 }
 class Items
 {
-    constructor(text, color, x, canvas)
+    constructor(binary, color, x, canvas)
     {
-        this.text = text;
+        this.binary = binary;
         this.color = color;
 
         this.x = x;
@@ -74,6 +82,13 @@ class Items
                         if(CircleCast([xPos, yPos], this.radius/2, [bullet.x, bullet.y], bullet.radius/2))
                         {
                             this.enable[index] = 0;
+                            var index = currentQuestion - (gameQuestions - message.current);
+                            var value = this.binary == 1;
+                            
+                            if(value) SelectVocation(index);
+                            AddAnswer(web_questions[index].id, value ? 1 : 0);
+                            
+                            message.current++;
                             bullet = null;
                         }
                     }
@@ -81,7 +96,7 @@ class Items
                     fill(255);
                     textStyle(NORMAL);
                     textAlign(CENTER, CENTER);
-                    text(this.text, xPos, yPos + 1);
+                    text(this.binary == 1 ? 'Si' : 'No', xPos, yPos + 1);
                 }
 
                 index++;
@@ -120,10 +135,8 @@ class Canon
         rotate(-this.angle);
         image(this.base, 0, 10, 60, 50);
     }
-    update(bullet)
+    update()
     {
-        // if(bullet != null) return;
-
         if(this.angle > this.maxAngle || this.angle < -this.maxAngle) 
             this.direction = (this.direction == 1) ? -1 : 1;
         

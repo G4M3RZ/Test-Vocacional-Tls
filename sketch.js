@@ -1,5 +1,4 @@
 let width = 260, height = 350;
-let play = false;
 let stopDelay = false;
 
 //#region Elements
@@ -35,14 +34,14 @@ function setup()
 }
 function draw()
 {
-    if(!play) return;
+    if(!playing) return;
 
     clear();
     
     message.show();
     
-    itemsLeft.show(bullet);
-    itemsRight.show(bullet);
+    itemsRight.show();
+    itemsLeft.show();
     
     //#region Bullet
     if(bullet != null)
@@ -56,10 +55,10 @@ function draw()
     //#endregion
 
     canon.show();
-    canon.update(bullet);
+    canon.update();
 
     //#region Complete Game
-    if((!itemsLeft.enable.includes(1) || !itemsRight.enable.includes(1)) && !stopDelay)
+    if(message.current >= message.text.length && !stopDelay)
     {
         stopDelay = true;
         StopGame();
@@ -70,7 +69,7 @@ function draw()
 //Input Key
 function keyPressed()
 {
-    if (keyCode === 32 && play) Shoot();
+    if (keyCode === 32 && playing) Shoot();
 }
 function Shoot()
 {
@@ -81,19 +80,19 @@ function Shoot()
     }
 }
 
-function ResetGame(question)
+function ResetGame(questions)
 {
-    message.wrap(question, 25);
+    message.wrap(questions, 25);
     
-    itemsLeft = new Items('No', '#ef416f', 0, width);
-    itemsRight = new Items('Si', '#31bd38', width/2, width);
+    itemsRight = new Items(1, '#31bd38', width/2, width);
+    itemsLeft = new Items(0, '#ef416f', 0, width);
     
     stopDelay = false;
-    play = true;
+    playing = true;
 }
 async function StopGame()
 {
-    await delay(1000);
+    await delay(500);
     InterpolateGame();
-    play = false;
+    playing = false;
 }

@@ -1,6 +1,6 @@
-//#region Mathematics
 const deltatime = 0.001;
 const delay = (ms) => new Promise( resolve => setTimeout(resolve, ms));
+async function until(fn) { while(!fn()) { await delay(100); } }
 
 function BoxCast2D(position, target, size, margen)
 {
@@ -24,4 +24,18 @@ function CircleCast(position, r1, target, r2)
 const Lerp = (a, b, t) => a -= (a - b) * t;
 const Clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 const Random = (maxValue) => Math.floor(Math.random() * maxValue);
-//#endregion
+
+const orderArray = array =>
+{
+    array.sort(function(a, b) { return a.question_id - b.question_id });
+};
+const shuffleArray = array =>
+{
+    for (let i = array.length - 1; i > 0; i--)
+    {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+};

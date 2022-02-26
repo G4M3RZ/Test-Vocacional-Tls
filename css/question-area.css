@@ -7,7 +7,7 @@
     justify-content: center;
 
     width: 100%;
-    min-height: calc(100vh - 166.39px);
+    min-height: calc(100vh - 151.39px);
 }
 .question-area-container
 {
@@ -16,10 +16,10 @@
     visibility: visible;
 
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 0 15px;/*10*/
 
     width: 350px;
-    min-width: 280px;
+    min-width: 270px;
     max-width: 350px;
 }
 .game
@@ -37,7 +37,7 @@
 .disable
 {
     animation-name: fade-out;
-    animation-duration: 1s;
+    animation-duration: 0.5s;
     animation-fill-mode: both;
 }
 @keyframes fade-in
@@ -165,7 +165,7 @@
 {
     display: flex;
     justify-content: space-around;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 .buttons #left
 {
