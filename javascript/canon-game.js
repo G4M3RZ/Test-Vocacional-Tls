@@ -82,11 +82,11 @@ class Items
                         if(CircleCast([xPos, yPos], this.radius/2, [bullet.x, bullet.y], bullet.radius/2))
                         {
                             this.enable[index] = 0;
-                            var index = currentQuestion - (gameQuestions - message.current);
+                            var id = (json_session.current + gameQuestions) - (gameQuestions - message.current);
                             var value = this.binary == 1;
                             
-                            if(value) SelectVocation(index);
-                            AddAnswer(web_questions[index].id, value ? 1 : 0);
+                            if(value) SelectVocation(id);
+                            AddAnswer(json_session.questions[id].id, value ? 1 : 0);
                             
                             message.current++;
                             bullet = null;

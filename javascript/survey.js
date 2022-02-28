@@ -1,13 +1,3 @@
-var json_survey = {};
-
-//User Data
-json_survey.code = 0;
-json_survey.name = 'Pedro Picapiedra';
-
-//Survey Values
-json_survey.survey_id = 0;
-json_survey.answers = [];
-
 const AddAnswer = (id, value) =>
 {
     json_survey.answers.push({"question_id" : id, "answer": value });
@@ -15,11 +5,20 @@ const AddAnswer = (id, value) =>
 }
 const AddCategory = (index) =>
 {
-    web_category[index - 1] += 1;
-    // console.log(web_category);
+    json_session.category[index - 1] += 1;
+    // console.log(json_session.category);
+    SelectVocation();
+}
+const SaveProgress = () =>
+{
+    window.sessionStorage.setItem('survey', JSON.stringify(json_survey));
+    // console.log(json_survey);
+    window.sessionStorage.setItem('progress', JSON.stringify(json_session));
+    // console.log(json_session);
 }
 const PostSurvey = () =>
 {
+    SaveProgress();
     orderArray(json_survey.answers);
     console.log(json_survey);
 
@@ -34,32 +33,70 @@ const PostSurvey = () =>
 };
 
 //----------------------Get Survey----------------------
-var web_questions;
-var web_category = [0, 0, 0, 0, 0, 0, 0];
+let survey = JSON.parse(window.sessionStorage.getItem('survey'));
+// console.log(survey);
 
+let session = JSON.parse(window.sessionStorage.getItem('progress'));
+// console.log(session);
+
+var json_survey = {};
+
+//test
+json_survey.code = 0;
+json_survey.name = 'Pedro Picapiedra';
+
+var json_session = {};
 let gameQuestions = 1;
-let totalQuestions = 0;
-let currentQuestion = 0;
 
-fetch('https://tlsvocacional.renzoguido.com/api/survey',
+if(survey == null || session == null)
 {
-    method: 'GET',
-    headers: { 'Content-type': 'application/json' }
-})
-.then((response) => response.json())
-.then((data) =>
-{
-    json_survey.survey_id = data.survey.id;
-    web_questions = data.survey.questions;
+    //Survey
+    json_survey.survey_id = 0;
+    json_survey.answers = [];
 
-    totalQuestions = web_questions.length - (gameQuestions * (levels.length - 2));
-    shuffleArray(web_questions);
-    console.log(web_questions);
+    //Session
+    json_session.total = 0;
+    json_session.current = 0;
+    json_session.progress = 0;
 
-    //Set first box text
-    SetBoxText(box1, web_questions[currentQuestion].title);
-})
-.catch(error => 
+    json_session.questions = [];
+    json_session.category = [0, 0, 0, 0, 0, 0, 0];
+    json_session.playing = false;
+
+    fetch('https://tlsvocacional.renzoguido.com/api/survey',
+    {
+        method: 'GET',
+        headers: { 'Content-type': 'application/json' }
+    })
+    .then((response) => response.json())
+    .then((data) =>
+    {
+        json_survey.survey_id = data.survey.id;
+        
+        json_session.questions = data.survey.questions;
+        json_session.total = json_session.questions.length - (gameQuestions * (levels.length - 2));
+        shuffleArray(json_session.questions);
+        console.log(json_session.questions);
+
+        //Set first box text
+        SetBoxText(box1, json_session.questions[json_session.current].title);
+    })
+    .catch(error => 
+    {
+        if(!alert('Connection Error: ' + error)) window.location.reload();
+    });
+}
+else
 {
-    if(!alert('Connection Error: ' + error)) window.location.reload();
-});
+    json_survey = survey;
+    json_session = session;
+
+    SetMiniGame();
+    SelectVocation();
+    SetProgressBar(false);
+
+    if(json_session.current < json_session.questions.length - 1)
+    {
+        SetBoxText(box1, json_session.questions[json_session.current].title);
+    }
+}

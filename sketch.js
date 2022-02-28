@@ -8,7 +8,6 @@ let bullet;
 let itemsLeft;
 let itemsRight;
 //#endregion
-
 //#region Images
 let canonImg;
 let baseImg;
@@ -34,7 +33,7 @@ function setup()
 }
 function draw()
 {
-    if(!playing) return;
+    if(!json_session.playing) return;
 
     clear();
     
@@ -48,9 +47,8 @@ function draw()
     {
         bullet.show();
 
-        //Destroy
-        if(!BoxCast2D([bullet.x, bullet.y], [width/2, height/2], [width, height], bullet.radius))
-            bullet = null;
+        //Destroy Bullet
+        if(!BoxCast2D([bullet.x, bullet.y], [width/2, height/2], [width, height], bullet.radius)) bullet = null;
     }
     //#endregion
 
@@ -69,7 +67,7 @@ function draw()
 //Input Key
 function keyPressed()
 {
-    if (keyCode === 32 && playing) Shoot();
+    if (keyCode === 32 && json_session.playing) Shoot();
 }
 function Shoot()
 {
@@ -88,11 +86,12 @@ function ResetGame(questions)
     itemsLeft = new Items(0, '#ef416f', 0, width);
     
     stopDelay = false;
-    playing = true;
 }
 async function StopGame()
 {
     await delay(500);
-    InterpolateGame();
-    playing = false;
+    
+    json_session.current += gameQuestions;
+    json_session.playing = false;
+    InterpolateGame(false);
 }
