@@ -1,12 +1,12 @@
 class Message
 {
-    constructor(x, size)
+    constructor(x)
     {
         this.x = x;
         this.y = 10;
         this.text = [];
         this.current = 0;
-        this.size = size;
+        this.size = 14;
     }
     show()
     {
@@ -85,7 +85,7 @@ class Items
                             var id = (json_session.current + gameQuestions) - (gameQuestions - message.current);
                             var value = this.binary == 1;
                             
-                            if(value) SelectVocation(id);
+                            if(value) AddCategory(json_session.questions[id].subcategory.link.area.id);
                             AddAnswer(json_session.questions[id].id, value ? 1 : 0);
                             
                             message.current++;

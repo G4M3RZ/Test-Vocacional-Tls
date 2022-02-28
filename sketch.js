@@ -28,7 +28,7 @@ function setup()
     noStroke();
     //#endregion
 
-    message = new Message(width / 2, 16);
+    message = new Message(width / 2);
     canon = new Canon(width / 2, height, canonImg, baseImg);
 }
 function draw()

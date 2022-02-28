@@ -85,7 +85,7 @@ async function Swipe(dir, opacity, time)
 
     var value = dir > 0;
     //Category Base on Id
-    if(value) AddCategory(json_session.questions[json_session.current].subcategory.id);
+    if(value) AddCategory(json_session.questions[json_session.current].subcategory.link.area.id);
     AddAnswer(json_session.questions[json_session.current].id, value ? 1 : 0);
 
     //Add progress amount

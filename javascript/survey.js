@@ -46,7 +46,7 @@ json_survey.code = 0;
 json_survey.name = 'Pedro Picapiedra';
 
 var json_session = {};
-let gameQuestions = 1;
+let gameQuestions = 6;
 
 if(survey == null || session == null)
 {
@@ -55,13 +55,14 @@ if(survey == null || session == null)
     json_survey.answers = [];
 
     //Session
+    json_session.questions = [];
+    json_session.category = [0, 0, 0, 0, 0, 0, 0];
+    //en caso de requerir mostrar las dos categorias, hacer 2 Arrays de category (intereses/aptitudes)
+    json_session.playing = false;
+
     json_session.total = 0;
     json_session.current = 0;
     json_session.progress = 0;
-
-    json_session.questions = [];
-    json_session.category = [0, 0, 0, 0, 0, 0, 0];
-    json_session.playing = false;
 
     fetch('https://tlsvocacional.renzoguido.com/api/survey',
     {
@@ -71,19 +72,22 @@ if(survey == null || session == null)
     .then((response) => response.json())
     .then((data) =>
     {
+        // console.log(data);
+
         json_survey.survey_id = data.survey.id;
-        
         json_session.questions = data.survey.questions;
+
         json_session.total = json_session.questions.length - (gameQuestions * (levels.length - 2));
         shuffleArray(json_session.questions);
-        console.log(json_session.questions);
+        // console.log(json_session.questions);
 
         //Set first box text
         SetBoxText(box1, json_session.questions[json_session.current].title);
     })
     .catch(error => 
     {
-        if(!alert('Connection Error: ' + error)) window.location.reload();
+        console.error(error);
+        if(!alert('Connection Error')) window.location.reload();
     });
 }
 else

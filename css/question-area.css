@@ -16,7 +16,7 @@
     visibility: visible;
 
     margin: 0 auto;
-    padding: 0 15px;/*10*/
+    padding: 0 15px;
 
     width: 350px;
     min-width: 270px;
@@ -156,7 +156,7 @@
 }
 .question-box p
 {
-    font-size: 3ex;
+    font-size: 20px;
     font-weight: bold;
 }
 /*#endregion*/
