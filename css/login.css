@@ -1,0 +1,82 @@
+#login
+{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+    background: rgb(204, 53, 110);
+    background: linear-gradient(145deg, rgba(204,53,110,1) 0%, rgba(139,54,128,1) 100%);
+    
+    z-index: 1000;
+}
+#login div
+{
+    max-width: 300px;
+    padding: 25px;
+    margin: 0 20px;
+
+    color: white;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.568);
+    border-radius: 5px;
+}
+#login h1
+{
+    text-align: center;
+    margin: 5px 0 10px;
+}
+
+#login input
+{
+    width: 100%;
+    height: 30px;
+    padding: 0 10px;
+    margin: 0 0 10px;
+
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    border-style: none;
+    outline: none;
+
+    transition: 0.5s ease-in;
+}
+#login input:focus
+{
+    background: none;
+}
+#login input::placeholder
+{
+    color: white;
+    font-size: 13px;
+}
+
+#login .message
+{
+    color: red;
+    font-size: 13px;
+    text-align: center;
+}
+
+#login button
+{
+    width: 100%;
+    margin: 10px 0 0;
+    
+    color: white;
+    font-size: 15px;
+    line-height: 2.5em;
+    font-weight: bold;
+    
+    cursor: pointer;
+    background: #222a3f;
+    border-radius: 2px;
+
+    transition: 0.5s ease-in;
+}
+#login button:hover
+{
+    color: white;
+}

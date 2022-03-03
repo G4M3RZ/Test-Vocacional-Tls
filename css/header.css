@@ -9,7 +9,7 @@
     --dir-vertical: calc(var(--list-item-size) * 0);
     --dir-horizontal: calc(var(--list-item-size) * 1);
 }
-header
+.category-header
 {
     /* top: 0; */
     position: sticky;
@@ -112,7 +112,7 @@ header
         --dir-vertical: calc(var(--list-item-size) * 1);
         --dir-horizontal: calc(var(--list-item-size) * 0);
     }
-    header
+    .category-header
     {
         height: 100vh;
         min-width: 320px;

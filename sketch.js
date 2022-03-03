@@ -93,5 +93,5 @@ async function StopGame()
     
     json_session.current += gameQuestions;
     json_session.playing = false;
-    InterpolateGame(false);
+    ChangeViewState(game, questionary);
 }

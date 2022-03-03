@@ -44,10 +44,25 @@ body
     border-radius: 50%;
 }
 
-@media (min-width: 925px)
+.enable
 {
-    body
-    {
-        display: flex;
-    }
+    animation-name: fade-in;
+    animation-duration: var(--t);
+    animation-fill-mode: both;
+}
+.disable
+{
+    animation-name: fade-out;
+    animation-duration: var(--t);
+    animation-fill-mode: both;
+}
+@keyframes fade-in
+{
+    from { opacity: 0%; }
+    to { visibility: visible; opacity: 100%; }
+}
+@keyframes fade-out
+{
+    from { opacity: 100%; }
+    to { visibility: hidden; opacity: 0%; }
 }

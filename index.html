@@ -5,101 +5,126 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Vocacional</title>
+
     <!--Styles-->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/question-area.css">
 
-    <script defer src="javascript/survey.js"></script>
+    <script defer src="js/index.js"></script>
+    <script defer src="js/login.js"></script>
+    <script defer src="js/survey.js"></script>
 </head>
 <body>
 
-    
-
-    <header>
-        <span class="username" id="username">Username</span>
-        <div class="vocation-list">
-            <ul>
-                <li class="list active">
-                    <img src="assets/header/Imagen1.png">
-                    <span class="text">Administración y Contabilidad</span>
-                </li>
-                <li class="list">
-                    <img src="assets/header/Imagen2.png">
-                    <span class="text">Humanidades y Ciencias Sociales</span>
-                </li>
-                <li class="list">
-                    <img src="assets/header/Imagen3.png">
-                    <span class="text">Artes</span>
-                </li>
-                <li class="list">
-                    <img src="assets/header/Imagen4.png">
-                    <span class="text">Medicina y Ciencias de la Salud</span>
-                </li>
-                <li class="list">
-                    <img src="assets/header/Imagen5.png">
-                    <span class="text">Ingeniería y Computación</span>
-                </li>
-                <li class="list">
-                    <img src="assets/header/Imagen6.png">
-                    <span class="text">Defensa y Seguridad</span>
-                </li>
-                <li class="list">
-                    <img src="assets/header/Imagen7.png">
-                    <span class="text">Ciencias Exactas y Agrarias</span>
-                </li>
-                <div class="bar"><div></div></div>
-                <div class="indicator"><div></div></div>
-            </ul>
+    <div id="login" class="enable" style="--t: 0.5s;">
+        <div>
+            <h1>LOGIN</h1>
+            <input type="text" placeholder="Nombre" id="first-name" required>
+            <input type="text" placeholder="Apellido" id="last-name" required>
+            <input type="number" placeholder="Codigo de Alumno" id="code" required>
+            <input type="email" placeholder="Correo" id="email" required>
+            <p id="error-message" class="message"></p>
+            <button id="login-button" type="submit">INGRESAR</button>
         </div>
-    </header>
-    <section class="question-area">
-        <div class="question-area-container interpolate enable">
-            <div class="level-progress">
-                <div class="amount"><p id="amount">0%</p></div>
+    </div>
 
-                <div class="progress-bar-container">
-                    <div class="progress-bar"><div id=fill-amount></div></div>
+    <div id="tutorial" class="disable" style="--t: 1s;">
 
-                    <div class="level-points">
-                        <div class="progress"></div>
-                        <div class="progress uncomplete"></div>
-                        <div class="progress uncomplete"></div>
-                        <div class="progress uncomplete"></div>
-                        <div class="progress"></div>
+    </div>
+    
+    <div id="survey" class="disable" style="--t: 0s;">
+        <header class="category-header">
+
+            <span class="username" id="username">Username</span>
+            <div class="vocation-list">
+                <ul>
+                    <li class="list active">
+                        <img src="assets/header/Imagen1.png">
+                        <span class="text">Administración y Contabilidad</span>
+                    </li>
+                    <li class="list">
+                        <img src="assets/header/Imagen2.png">
+                        <span class="text">Humanidades y Ciencias Sociales</span>
+                    </li>
+                    <li class="list">
+                        <img src="assets/header/Imagen3.png">
+                        <span class="text">Artes</span>
+                    </li>
+                    <li class="list">
+                        <img src="assets/header/Imagen4.png">
+                        <span class="text">Medicina y Ciencias de la Salud</span>
+                    </li>
+                    <li class="list">
+                        <img src="assets/header/Imagen5.png">
+                        <span class="text">Ingeniería y Computación</span>
+                    </li>
+                    <li class="list">
+                        <img src="assets/header/Imagen6.png">
+                        <span class="text">Defensa y Seguridad</span>
+                    </li>
+                    <li class="list">
+                        <img src="assets/header/Imagen7.png">
+                        <span class="text">Ciencias Exactas y Agrarias</span>
+                    </li>
+                    <div class="bar"><div></div></div>
+                    <div class="indicator"><div></div></div>
+                </ul>
+            </div>
+            
+        </header>
+        <section class="question-area" style="--t: 1s;">
+            <div id="questionary" class="question-area-container enable">
+                <div class="level-progress">
+                    <div class="amount"><p id="amount">0%</p></div>
+    
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"><div id=fill-amount></div></div>
+    
+                        <div class="level-points">
+                            <div class="progress"></div>
+                            <div class="progress uncomplete"></div>
+                            <div class="progress uncomplete"></div>
+                            <div class="progress uncomplete"></div>
+                            <div class="progress"></div>
+                        </div>
                     </div>
                 </div>
+                
+                <div class="question-box" id="question-box">
+                    <div><p class="question-txt"></p></div>
+                    <div><p class="question-txt"></p></div>
+                </div>
+    
+                <div class="buttons">
+                    <span class="button" id="left">No</span>
+                    <span class="button" id="right">Si</span>
+                </div>
+    
+                <span class="info">También puedes usar<br>← teclado →</span>
             </div>
-            
-            <div class="question-box" id="question-box">
-                <div><p class="question-txt"></p></div>
-                <div><p class="question-txt"></p></div>
+    
+            <div id="minigame" class="game disable" style="--time: 1">
+                <div id="game"></div>
+                
+                <div class="game-info">
+                    <span class="info">Espacio Dispara</span>
+                    <div class="button" id="shoot"><img src="assets/canon-game/cursor.png"></div>
+                </div>
             </div>
+        </section>
+    </div>
 
-            <div class="buttons">
-                <span class="button" id="left">No</span>
-                <span class="button" id="right">Si</span>
-            </div>
+    <div id="result" class="disable" style="--t: 0s;">
 
-            <span class="info">También puedes usar<br>← teclado →</span>
-        </div>
-
-        <div class="game interpolate disable">
-            <div id="game"></div>
-            
-            <div class="game-info">
-                <span class="info">Espacio Dispara</span>
-                <div class="button" id="shoot"><img src="assets/canon-game/cursor.png"></div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!--Scripts-->
-    <script src="javascript/p5.min.js"></script>
-    <script src="javascript/utility.js"></script>
-    <script src="javascript/index.js"></script>
+    <script src="js/p5.min.js"></script>
+    <script src="js/utility.js"></script>
 
     <script src="sketch.js"></script>
-    <script src="javascript/canon-game.js"></script>
+    <script src="js/canon-game.js"></script>
 </body>
 </html>

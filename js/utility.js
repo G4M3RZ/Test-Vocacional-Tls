@@ -25,6 +25,12 @@ const Lerp = (a, b, t) => a -= (a - b) * t;
 const Clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 const Random = (maxValue) => Math.floor(Math.random() * maxValue);
 
+const idArray = array =>
+{
+    let arr = [];
+    for(let i = 0; i < array.length; i++) arr.push(array[i].id);
+    return arr;
+}
 const orderArray = array =>
 {
     array.sort(function(a, b) { return a.question_id - b.question_id });

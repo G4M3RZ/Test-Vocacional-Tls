@@ -1,3 +1,4 @@
+/*#region Swipe & Game*/
 .question-area
 {
     display: flex;
@@ -28,28 +29,7 @@
     position: absolute;
     visibility: hidden;
 }
-.enable
-{
-    animation-name: fade-in;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-}
-.disable
-{
-    animation-name: fade-out;
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
-}
-@keyframes fade-in
-{
-    from { opacity: 0%; }
-    to { visibility: visible; opacity: 100%; }
-}
-@keyframes fade-out
-{
-    from { opacity: 100%; }
-    to { visibility: hidden; opacity: 0%; }
-}
+/*#endregion*/
 
 /*#region Level Progress Bar*/
 .level-progress
@@ -199,6 +179,10 @@
 
 @media (min-width: 925px)
 {
+    #survey
+    {
+        display: flex;
+    }
     .question-area
     {
         min-height: 100vh;

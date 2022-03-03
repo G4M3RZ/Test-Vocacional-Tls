@@ -1,10 +1,35 @@
+//#region Web Scenes
+
+
+//Main
+const loginView = document.getElementById('login');
+const tutorialView = document.getElementById('tutorial');
+const surveyView = document.getElementById('survey');
+const resultView = document.getElementById('result');
+
+//Sub
+const questionary = document.getElementById('questionary');
+const game = document.getElementById('minigame');
+
+function ChangeViewState(from, to)
+{
+    from?.classList.replace('enable', 'disable');
+    to?.classList.replace('disable', 'enable');
+}
+
+
+//#endregion
+
+
 //#region Header
+
+
 const list = document.querySelectorAll('.list');
 
 function SelectVocation()
 {
-    var max = Math.max.apply(null, json_session.category);
-    var index = json_session.category.indexOf(max);
+    const max = Math.max.apply(null, json_session.amount);
+    const index = json_session.amount.indexOf(max);
 
     for(i = 0; i < list.length; i++)
     {
@@ -12,22 +37,26 @@ function SelectVocation()
         else list[i].classList.add('active');
     }
 }
+
+
 //#endregion
 
+
 //#region Progress Bar
+
+
 const percent = document.getElementById("amount");
 const levels = document.getElementsByClassName("progress");
 const bar = document.getElementById("fill-amount");
 
 function SetProgressBar(validate)
 {
-    let value = Math.round(Math.min(json_session.progress, 100));
+    const value = Math.round(Math.min(json_session.progress, 100));
     percent.innerHTML = bar.style.width = value + "%";
 
-    let reach = 100 / (levels.length - 1);
-    let succed = Math.floor(value / reach);
+    const reach = 100 / (levels.length - 1);
+    const succed = Math.floor(value / reach);
 
-    //Show Mini Game
     for(let i = succed; i >= 1; i--)
     {
         if(levels[i].classList.contains('uncomplete'))
@@ -37,42 +66,38 @@ function SetProgressBar(validate)
         }
     }
 }
+
+
+//#endregion
+
+
+//#region Minigame
+
+
+//Shoot Button
+document.getElementById('shoot').addEventListener('click', () => Shoot());
+
 function SetMiniGame()
 {
     if(!json_session.playing) return;
 
-    let start = json_session.current;
-    let end = start + gameQuestions;
+    const start = json_session.current;
+    const end = start + gameQuestions;
     let questions = [];
 
     for(let j = start; j < end; j++) questions.push(json_session.questions[j]);
 
     ResetGame(questions);
-    InterpolateGame(true);
+    ChangeViewState(questionary, game);
 }
+
+
 //#endregion
 
-//#region Minigame
-let playing = false;
-
-const interpolate = document.getElementsByClassName("interpolate");
-const shootButton = document.getElementById('shoot');
-shootButton.addEventListener('click', () => Shoot());
-
-function InterpolateGame(play)
-{
-    // interpolate[0].classList.replace(play ? 'enable' : 'disable', play ? 'disable' : 'enable');
-    // interpolate[1].classList.replace(play ? 'disable' : 'enable', play ? 'enable' : 'disable');
-
-    for(i = 0; i < interpolate.length; i++)
-    {
-        let active = interpolate[i].classList.contains('enable');
-        interpolate[i].classList.replace(active ? 'enable' : 'disable', active ? 'disable' : 'enable');
-    }
-}
-//#endregion
 
 //#region Question Box
+
+
 const qBox = document.getElementById("question-box");
 const box1 = qBox.firstElementChild;
 const box2 = qBox.lastElementChild;
@@ -81,7 +106,7 @@ let currentBox = 0;
 SetBoxStyle(box2, 0, 0, 0);
 async function Swipe(dir, opacity, time)
 {
-    if(json_session.progress >= 100 || json_session.questions == null || json_session.playing) return;
+    if(json_session.progress >= 100 || json_session.questions.length === 0 || json_session.playing) return;
 
     var value = dir > 0;
     //Category Base on Id
@@ -104,7 +129,7 @@ async function Swipe(dir, opacity, time)
     await until(() => json_session.playing == false);
 
     //Swipe Delay
-    if(json_session.progress >= 100) { PostSurvey(); return; };
+    if(json_session.progress >= 100) { SendSurvey(); return; };
     await delay(time * 100);
 
     //Save Json Progress
@@ -124,7 +149,10 @@ function SetBoxStyle(element, direction, opacity, time)
     element.style.transform = "translateX(" + direction * 100 + "px) rotate(" + direction * 10 + "deg)";
     element.style.opacity = opacity;
 };
+
+
 //#endregion
+
 
 //#region Select Buttons
 const leftButton = document.getElementById("left");
