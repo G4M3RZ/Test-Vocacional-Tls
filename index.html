@@ -13,13 +13,12 @@
     <link rel="stylesheet" href="css/question-area.css">
 
     <script defer src="js/index.js"></script>
-    <script defer src="js/login.js"></script>
-    <script defer src="js/survey.js"></script>
 </head>
 <body>
 
     <div id="login" class="enable" style="--t: 0.5s;">
-        <div>
+        
+        <div id="login-container" class="container enable">
             <h1>LOGIN</h1>
             <input type="text" placeholder="Nombre" id="first-name" required>
             <input type="text" placeholder="Apellido" id="last-name" required>
@@ -28,10 +27,14 @@
             <p id="error-message" class="message"></p>
             <button id="login-button" type="submit">INGRESAR</button>
         </div>
+
+        <div id="loading" class="loading disable"><div></div></div>
     </div>
 
     <div id="tutorial" class="disable" style="--t: 1s;">
+        <div class="container">
 
+        </div>
     </div>
     
     <div id="survey" class="disable" style="--t: 0s;">
@@ -105,7 +108,7 @@
                 <span class="info">También puedes usar<br>← teclado →</span>
             </div>
     
-            <div id="minigame" class="game disable" style="--time: 1">
+            <div id="minigame" class="game disable">
                 <div id="game"></div>
                 
                 <div class="game-info">
@@ -117,7 +120,8 @@
     </div>
 
     <div id="result" class="disable" style="--t: 0s;">
-
+        <!-- <span id="final-result"></span>
+        <img src=""> -->
     </div>
 
     <!--Scripts-->

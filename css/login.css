@@ -12,8 +12,9 @@
     
     z-index: 1000;
 }
-#login div
+#login .container
 {
+    position: relative;
     max-width: 300px;
     padding: 25px;
     margin: 0 20px;
@@ -79,4 +80,26 @@
 #login button:hover
 {
     color: white;
+}
+
+.loading
+{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+.loading div
+{
+    width: 100%;
+    height: 100%;
+    border: 4px solid #ffffff;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+}
+@keyframes spin
+{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

@@ -34,7 +34,7 @@ const idArray = array =>
 const orderArray = array =>
 {
     array.sort(function(a, b) { return a.question_id - b.question_id });
-};
+}
 const shuffleArray = array =>
 {
     for (let i = array.length - 1; i > 0; i--)
@@ -44,4 +44,4 @@ const shuffleArray = array =>
         array[i] = array[j];
         array[j] = temp;
     }
-};
+}
