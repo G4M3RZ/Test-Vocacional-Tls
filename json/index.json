@@ -1,0 +1,41 @@
+{
+    "tutorial" : "",
+    "category" :
+    [
+        {
+            "id" : 0,
+            "name" : "Administracion y Contabilidad",
+            "info" : ""
+        },
+        {
+            "id" : 1,
+            "name" : "Humanidades y Ciencias Sociales",
+            "info" : ""
+        },
+        {
+            "id" : 2,
+            "name" : "Artes",
+            "info" : ""
+        },
+        {
+            "id" : 3,
+            "name" : "Medicina y Ciencias de la Salud",
+            "info" : ""
+        },
+        {
+            "id" : 4,
+            "name" : "Ingeniería y Computación",
+            "info" : ""
+        },
+        {
+            "id" : 5,
+            "name" : "Defensa y Seguridad",
+            "info" : ""
+        },
+        {
+            "id" : 6,
+            "name" : "Ciencias Exactas y Agrarias",
+            "info" : ""
+        }
+    ]
+}

@@ -1,12 +1,28 @@
 //#region ----------------------HTML-----------------------
 
+    //#region ----Basic
+
+        //Text
+        
+
+        //Numeric Input Field
+        const numericInputs = document.getElementsByClassName('numeric');
+        var invalidInputs = ["-", "+", "e", "."];
+
+        const InvalidInput = (e) => { if(invalidInputs.includes(e.key)) e.preventDefault(); };
+        numericInputs.forEach(i => i.addEventListener("keydown", InvalidInput));
+
+        //Email Validation
+        const ValidEmail = (mail) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+
+    //#endregion
+
     //#region ----Fade Scenes----
 
         //#region Main Scenes
         const loginView = document.getElementById('login');
         const tutorialView = document.getElementById('tutorial');
         const surveyView = document.getElementById('survey');
-        const resultView = document.getElementById('result');
         //#endregion
         //#region Sub Scenes
         //Login
@@ -16,6 +32,7 @@
         //Questionary
         const questionary = document.getElementById('questionary');
         const game = document.getElementById('minigame');
+        const result = document.getElementById('result');
         //#endregion
 
         function ChangeViewState(from, to)
@@ -28,8 +45,13 @@
 
     //#region ----Category----
 
+        const username = document.getElementById('username');
         const list = document.querySelectorAll('.list');
 
+        function SetUsername(string)
+        {
+            username.innerHTML = string.toString();
+        }
         function SelectVocation()
         {
             const max = Math.max.apply(null, json_session.amount);
@@ -169,6 +191,15 @@
     });
     //#endregion
 
+    //#region ----Result----
+
+    function SetResult()
+    {
+
+    }
+
+    //#endregion
+
 //#endregion
 
 //#region ----------------------LOGIN----------------------
@@ -195,40 +226,66 @@
         user.code = parseInt(codeField.value);
         user.email = emailField.value;
 
-        if(user.name != '' && user.lastName != '' && user.code != NaN && user.email != '')
+        //#region Uncomplete Fields
+        if(user.name === '' || user.lastName === '' || user.email === '' || codeField.value.length === 0)
         {
-            errorMessage.innerHTML = '';
-            ChangeViewState(loginContainer, loginLoad);
+            errorMessage.innerHTML = 'Campos Incompletos';
+            return;
+        }
+        if(codeField.value.length < 10)
+        {
+            errorMessage.innerHTML = 'Código Incompleto';
+            return;
+        }
+        if(!ValidEmail(user.email))
+        {
+            errorMessage.innerHTML = 'Email Invalido';
+            return;
+        }
+        //#endregion
+        //#region Show Loading
+        errorMessage.innerHTML = '';
+        ChangeViewState(loginContainer, loginLoad);
+        //#endregion
 
-            fetch('https://tlsvocacional.renzoguido.com/api/check/student',
-            {
-                method: 'POST',
-                headers: { 'Content-type': 'application/json' },
-                body: JSON.stringify(user)
-            })
-            .then((response) => response.json())
-            .then((result) =>
-            {
-                if(result.code == 1)
-                {
-                    GetSurvey();
-                }
-                else
-                {
-                    errorMessage.innerHTML = 'Survey Already Completed';
-                }
-            })
-            .catch(error =>
-            {
-                errorMessage.innerHTML = error.text;
-                ChangeViewState(loginLoad, loginContainer);
-            });
-        }
-        else
+        fetch('https://tlsvocacional.renzoguido.com/api/check/student',
         {
-            errorMessage.innerHTML = 'Incomplete Fields';
-        }
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(user)
+        })
+        .then((response) => response.json())
+        .then((result) =>
+        {
+            if(result.code == 1)
+            {
+                SetUsername(user.name + " " + user.lastName);
+                GetSurvey();
+            }
+            else
+            {
+                errorMessage.innerHTML = 'Survey Already Completed';
+                ChangeViewState(loginLoad, loginContainer);
+            }
+        })
+        .catch(error =>
+        {
+            errorMessage.innerHTML = error.text;
+            ChangeViewState(loginLoad, loginContainer);
+        });
     }
+
+    //#region Tutorial
+
+    const tutorialButton = document.getElementById('tutorial-button');
+    tutorialButton.addEventListener('click', CloseTutorial);
+
+    function CloseTutorial()
+    {
+        ChangeViewState(tutorialView, null);
+    }
+
+    //#endregion
 
 //#endregion
 
@@ -239,6 +296,9 @@
     let session = JSON.parse(window.sessionStorage.getItem('progress'));
     //#endregion
     //#region Json
+    let json_category;
+    fetch('../json/index.json').then(r => r.json()).then(j => json_category = j);
+
     var json_survey = {};
     json_survey.survey_id = 0;
     json_survey.answers = [];
@@ -266,15 +326,15 @@
         SetMiniGame();
         SelectVocation();
         SetProgressBar(false);
+        ChangeViewState(loginView, surveyView);
         
         if(json_session.current < json_session.questions.length - 1)
         {
-            ChangeViewState(loginView, surveyView);
             SetBoxText(box1, json_session.questions[json_session.current].title);
         }
         else
         {
-            ChangeViewState(loginView, resultView);
+            ChangeViewState(questionary, result);
         }
     }
     //#endregion
@@ -307,7 +367,8 @@
     {
         //Set User Values
         json_survey.code = user.code;
-        json_survey.name = user.name;
+        json_survey.name = user.name + " " + user.lastName;
+        json_survey.email = user.email;
 
         fetch('https://tlsvocacional.renzoguido.com/api/survey',
         {
@@ -330,10 +391,11 @@
             
             //Random Questions
             shuffleArray(json_session.questions);
-            console.log(json_session.questions);
+            // console.log(json_session.questions);
 
             if(json_session.questions.length != 0)
             {
+                ChangeViewState(null, tutorialView);
                 ChangeViewState(loginView, surveyView);
                 SetBoxText(box1, json_session.questions[json_session.current].title);
             }
@@ -350,7 +412,9 @@
     }
     function SendSurvey ()
     {
+        ChangeViewState(questionary, result);
         SaveProgress();
+
         orderArray(json_survey.answers);
         console.log(json_survey);
 

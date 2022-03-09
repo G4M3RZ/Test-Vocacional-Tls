@@ -8,38 +8,34 @@
 
     <!--Styles-->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/question-area.css">
 
     <script defer src="js/index.js"></script>
 </head>
 <body>
 
-    <div id="login" class="enable" style="--t: 0.5s;">
+    <div id="login" class="over enable" style="--t: 0.5s;">
         
         <div id="login-container" class="container enable">
+            
             <h1>LOGIN</h1>
+
             <input type="text" placeholder="Nombre" id="first-name" required>
             <input type="text" placeholder="Apellido" id="last-name" required>
-            <input type="number" placeholder="Codigo de Alumno" id="code" required>
+            <input type="number" class="numeric" placeholder="Codigo de Alumno" id="code" required>
             <input type="email" placeholder="Correo" id="email" required>
+            
             <p id="error-message" class="message"></p>
+            
             <button id="login-button" type="submit">INGRESAR</button>
+        
         </div>
 
         <div id="loading" class="loading disable"><div></div></div>
     </div>
 
-    <div id="tutorial" class="disable" style="--t: 1s;">
-        <div class="container">
-
-        </div>
-    </div>
-    
     <div id="survey" class="disable" style="--t: 0s;">
-        <header class="category-header">
-
+        <header>
             <span class="username" id="username">Username</span>
             <div class="vocation-list">
                 <ul>
@@ -75,10 +71,10 @@
                     <div class="indicator"><div></div></div>
                 </ul>
             </div>
-            
         </header>
-        <section class="question-area" style="--t: 1s;">
-            <div id="questionary" class="question-area-container enable">
+        <section class="container" style="--t: 1s;">
+
+            <div id="questionary" class="enable">
                 <div class="level-progress">
                     <div class="amount"><p id="amount">0%</p></div>
     
@@ -108,7 +104,7 @@
                 <span class="info">También puedes usar<br>← teclado →</span>
             </div>
     
-            <div id="minigame" class="game disable">
+            <div id="minigame" class="disable">
                 <div id="game"></div>
                 
                 <div class="game-info">
@@ -116,12 +112,26 @@
                     <div class="button" id="shoot"><img src="assets/canon-game/cursor.png"></div>
                 </div>
             </div>
+
+            <div id="result" class="disable">
+                <p>Administración y Contabilidad</p>
+                <img src="assets/header/Imagen1.png">
+                <span>
+                    Lorem ipsum dolor sit amet consectetur 
+                    adipisicing elit. Beatae aperiam vel, laborum 
+                    corporis reiciendis autem, excepturi sapiente, 
+                    architecto animi est placeat eius tempore tempora 
+                    libero laudantium asperiores obcaecati a voluptas.
+                </span>
+            </div>
         </section>
     </div>
 
-    <div id="result" class="disable" style="--t: 0s;">
-        <!-- <span id="final-result"></span>
-        <img src=""> -->
+    <div id="tutorial" class="over disable" style="--t: 0s;">
+        <div class="container">
+            <span id="tutorial-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora ipsam possimus doloribus, nam, facilis numquam et veritatis culpa sit blanditiis quis architecto, cupiditate debitis laborum voluptates aliquid soluta iste incidunt?</span>
+            <button id="tutorial-button">Ok</button>
+        </div>
     </div>
 
     <!--Scripts-->

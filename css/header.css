@@ -9,16 +9,11 @@
     --dir-vertical: calc(var(--list-item-size) * 0);
     --dir-horizontal: calc(var(--list-item-size) * 1);
 }
-.category-header
-{
-    /* top: 0; */
-    position: sticky;
-    background: #ffff;
-}
 .username
 {
     display: block;
     position: sticky;
+    white-space: nowrap;
     line-height: 2em;
 
     color: white;
@@ -112,7 +107,7 @@
         --dir-vertical: calc(var(--list-item-size) * 1);
         --dir-horizontal: calc(var(--list-item-size) * 0);
     }
-    .category-header
+    #survey header
     {
         height: 100vh;
         min-width: 320px;
