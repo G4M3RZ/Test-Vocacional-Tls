@@ -2,16 +2,13 @@
 
     //#region ----Basic
 
-        //Text
-        
-
         //Numeric Input Field
         const numericInputs = document.getElementsByClassName('numeric');
         var invalidInputs = ["-", "+", "e", "."];
 
         const InvalidInput = (e) => { if(invalidInputs.includes(e.key)) e.preventDefault(); };
         numericInputs.forEach(i => i.addEventListener("keydown", InvalidInput));
-
+        
         //Email Validation
         const ValidEmail = (mail) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
 
@@ -45,12 +42,14 @@
 
     //#region ----Category----
 
+        const textContainer = document.getElementById('text-container');
         const username = document.getElementById('username');
         const list = document.querySelectorAll('.list');
 
         function SetUsername(string)
         {
             username.innerHTML = string.toString();
+            textFit(textContainer);
         }
         function SelectVocation()
         {

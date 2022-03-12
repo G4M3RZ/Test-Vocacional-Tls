@@ -6,10 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Vocacional</title>
 
-    <!--Styles-->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/header.css">
-
     <script defer src="js/index.js"></script>
 </head>
 <body>
@@ -36,41 +33,43 @@
 
     <div id="survey" class="disable" style="--t: 0s;">
         <header>
-            <span class="username" id="username">Username</span>
-            <div class="vocation-list">
-                <ul>
-                    <li class="list active">
-                        <img src="assets/header/Imagen1.png">
-                        <span class="text">Administración y Contabilidad</span>
-                    </li>
-                    <li class="list">
-                        <img src="assets/header/Imagen2.png">
-                        <span class="text">Humanidades y Ciencias Sociales</span>
-                    </li>
-                    <li class="list">
-                        <img src="assets/header/Imagen3.png">
-                        <span class="text">Artes</span>
-                    </li>
-                    <li class="list">
-                        <img src="assets/header/Imagen4.png">
-                        <span class="text">Medicina y Ciencias de la Salud</span>
-                    </li>
-                    <li class="list">
-                        <img src="assets/header/Imagen5.png">
-                        <span class="text">Ingeniería y Computación</span>
-                    </li>
-                    <li class="list">
-                        <img src="assets/header/Imagen6.png">
-                        <span class="text">Defensa y Seguridad</span>
-                    </li>
-                    <li class="list">
-                        <img src="assets/header/Imagen7.png">
-                        <span class="text">Ciencias Exactas y Agrarias</span>
-                    </li>
+            <div id="text-container">
+                <span id="username">Username</span>
+            </div>
+            <ul>
+                <li class="list" style="--i: 1;">
+                    <img src="assets/header/Imagen1.png">
+                    <span class="text">Administración y Contabilidad</span>
+                </li>
+                <li class="list active" style="--i: 2;">
+                    <img src="assets/header/Imagen2.png">
+                    <span class="text">Humanidades y Ciencias Sociales</span>
+                </li>
+                <li class="list" style="--i: 3;">
+                    <img src="assets/header/Imagen3.png">
+                    <span class="text">Artes</span>
+                </li>
+                <li class="list" style="--i: 4;">
+                    <img src="assets/header/Imagen4.png">
+                    <span class="text">Medicina y Ciencias de la Salud</span>
+                </li>
+                <li class="list" style="--i: 5;">
+                    <img src="assets/header/Imagen5.png">
+                    <span class="text">Ingeniería y Computación</span>
+                </li>
+                <li class="list" style="--i: 6;">
+                    <img src="assets/header/Imagen6.png">
+                    <span class="text">Defensa y Seguridad</span>
+                </li>
+                <li class="list" style="--i: 7;">
+                    <img src="assets/header/Imagen7.png">
+                    <span class="text">Ciencias Exactas y Agrarias</span>
+                </li>
+                <div class="slider">
                     <div class="bar"><div></div></div>
                     <div class="indicator"><div></div></div>
-                </ul>
-            </div>
+                </div>
+            </ul>
         </header>
         <section class="container" style="--t: 1s;">
 
@@ -135,7 +134,8 @@
     </div>
 
     <!--Scripts-->
-    <script src="js/p5.min.js"></script>
+    <script src="js/library/textFit.min.js"></script>
+    <script src="js/library/p5.min.js"></script>
     <script src="js/utility.js"></script>
 
     <script src="sketch.js"></script>

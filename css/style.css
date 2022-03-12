@@ -6,6 +6,7 @@
         --light-blue-text: #4874c4;
         --progress-bar-color: white;
 
+        --pink-theme: #ffd1f0;
         --red-theme: #ef416f;
         --green-theme: #31bd38;
         --dark-red-theme: #ad0f38;
@@ -14,6 +15,11 @@
     /*#region Values*/
     
         --button-size: 65px;
+
+        --list-size: 280px;
+        --list-item-size: calc(var(--list-size) / 7);
+        --dir-vertical: calc(var(--list-item-size) * 0);
+        --dir-horizontal: calc(var(--list-item-size) * 1);
     
     /*#endregion*/
 
@@ -26,6 +32,7 @@
     padding: 0;
     transition: none;
     
+    list-style: none;
     user-select: none;
     font-family: "Arial";
     box-sizing: border-box;
@@ -171,6 +178,7 @@ input::-webkit-inner-spin-button
         padding: 0 10px;
         margin: 0 0 10px;
 
+        color: white;
         background: rgba(0, 0, 0, 0.3);
         border-radius: 2px;
         border-style: none;
@@ -262,12 +270,154 @@ input::-webkit-inner-spin-button
 
 /*#region----------------------Category--------------------*/
 
-#survey header
-{
-    /* top: 0; */
-    position: sticky;
-    background: white;
-}
+    #survey header
+    {
+        position: sticky;
+        background: white;
+    }
+
+    /*#region Name*/
+
+        #survey header #text-container
+        {
+            display: flex;
+            position: sticky;
+            align-items: center;
+            justify-content: center;
+
+            height: 6vh;
+
+            background: rgb(204,53,110);
+            background: linear-gradient(145deg, rgba(204,53,110,1) 0%, rgba(139,54,128,1) 100%);
+        }
+        #survey header #username
+        {
+            font-size: 30px;
+            color: white;
+            white-space: nowrap;
+        }
+
+    /*#endregion*/
+    /*#region Category List*/
+
+        #survey header ul
+        {
+            display: grid;
+            margin: 0 auto;
+            grid-template-rows: repeat(2, 1fr);
+            grid-template-columns: repeat(7, minmax(1px, 1fr));
+
+            width: var(--list-size);
+            height: 110px;
+        }
+        #survey header li
+        {
+            grid-area: 2 / var(--i) / 3 / calc(var(--i) + 1);
+        }
+        #survey header li img
+        {
+            width: 100%;
+        }
+        #survey header li span
+        {
+            display: none;
+        }
+
+    /*#endregion*/
+    /*#region Slider*/
+
+        #survey header .slider
+        {
+            display: flex;
+            position: relative;
+            align-items: center;
+
+            grid-area: 1 / 1 / 2 / 8;
+        }
+
+        /*#region Bar*/
+
+            #survey header .slider .bar
+            {
+                display: flex;
+                position: absolute;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+                height: 100%;
+
+                padding: 0 calc(var(--list-item-size) / 2);
+            }
+            #survey header .slider .bar div
+            {
+                width: 100%;
+                height: 10px;
+
+                background: var(--pink-theme);
+                border-radius: 5px;
+            }
+
+        /*#endregion*/
+        /*#region Indicator*/
+
+            #survey header .indicator
+            {
+                position: absolute;
+                padding: 8px;
+
+                width: var(--list-item-size);
+                height: var(--list-item-size);
+                
+                transition: transform 0.5s;
+            }
+            #survey header .indicator div
+            {
+                width: 100%;
+                height: 100%;
+
+                transform: rotate(-45deg);
+
+                background: #d5759c;
+                border-radius: 50% 50% 50% 0px;
+            }
+
+        /*#endregion*/
+
+    /*#endregion*/
+
+    /*#region Translate Indicator*/
+
+        #survey header ul li:nth-child(1).active ~ .slider .indicator
+        {
+            transform: translate(calc(var(--dir-horizontal) * 0), calc(var(--dir-vertical) * 0));
+        }
+        #survey header ul li:nth-child(2).active ~ .slider .indicator
+        {
+            transform: translate(calc(var(--dir-horizontal) * 1), calc(var(--dir-vertical) * 1));
+        }
+        #survey header ul li:nth-child(3).active ~ .slider .indicator
+        {
+            transform: translate(calc(var(--dir-horizontal) * 2), calc(var(--dir-vertical) * 2));
+        }
+        #survey header ul li:nth-child(4).active ~ .slider .indicator
+        {
+            transform: translate(calc(var(--dir-horizontal) * 3), calc(var(--dir-vertical) * 3));
+        }
+        #survey header ul li:nth-child(5).active ~ .slider .indicator
+        {
+            transform: translate(calc(var(--dir-horizontal) * 4), calc(var(--dir-vertical) * 4));
+        }
+        #survey header ul li:nth-child(6).active ~ .slider .indicator
+        {
+            transform: translate(calc(var(--dir-horizontal) * 5), calc(var(--dir-vertical) * 5));
+        }
+        #survey header ul li:nth-child(7).active ~ .slider .indicator
+        {
+            transform: translate(calc(var(--dir-horizontal) * 6), calc(var(--dir-vertical) * 6));
+        }
+
+    /*#endregion*/
 
 /*#endregion*/
 /*#region----------------------Survey----------------------*/
@@ -503,7 +653,106 @@ input::-webkit-inner-spin-button
 
 @media (min-width: 925px)
 {
+    :root
+    {
+        --list-size: calc(90vh);
 
+        --dir-vertical: calc(var(--list-item-size) * 1);
+        --dir-horizontal: calc(var(--list-item-size) * 0);
+    }
+
+    /*#region------------------Category--------------------*/
+
+        #survey header
+        {
+            height: 100vh;
+        }
+
+        /*#region Name*/
+
+            #survey header #text-container
+            {
+                width: 100%;
+                height: calc(100vh - var(--list-size));
+                padding: 10px;
+            }
+
+        /*#endregion*/
+        /*#region Category List*/
+
+            #survey header ul
+            {
+                grid-template-rows: repeat(7, minmax(1px, 1fr));
+                grid-template-columns: 1fr 0.5fr;
+
+                width: 300px;
+                height: var(--list-size);
+                margin: 0 10px;
+            }
+            #survey header li
+            {
+                display: flex;
+                grid-area: var(--i) / 1 / calc(var(--i) + 1) / 2;
+            }
+            #survey header li img
+            {
+                margin: 5%;
+                width: auto;
+                height: auto;
+            }
+            #survey header li span
+            {
+                display: flex;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+                font-size: 11px;
+                padding: 0 10px;
+                color: var(--light-blue-text);
+            }
+
+        /*#endregion*/
+        /*#region Slider*/
+
+            #survey header .slider
+            {
+                align-items: flex-start;
+                justify-content: center;
+                grid-area: 1 / 2 / 8 / 3;
+            }
+
+            /*#region Bar*/
+
+                #survey header .slider .bar
+                {
+                    padding: calc(var(--list-item-size) / 2) 0;
+                }
+                #survey header .slider .bar div
+                {
+                    width: 10px;
+                    height: 100%;
+                }
+
+            /*#endregion*/
+            /*#region Indicator*/
+
+                #survey header .indicator
+                {
+                    padding: calc(var(--list-item-size) / 3);
+                    transition: transform 0.5s;
+                }
+                #survey header .indicator div
+                {
+                    transform: rotate(45deg);
+                }
+
+            /*#endregion*/
+
+        /*#endregion*/
+    
+    /*#endregion*/
     /*#region------------------Survey----------------------*/
 
         /*#region Container*/
