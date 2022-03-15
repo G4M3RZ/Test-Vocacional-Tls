@@ -15,8 +15,8 @@ let baseImg;
 
 function preload()
 {
-    canonImg = loadImage('assets/canon-game/canon.png');
-    baseImg = loadImage('assets/canon-game/base.png');
+    canonImg = loadImage('assets/canon-game/canon.svg');
+    baseImg = loadImage('assets/canon-game/base.svg');
 }
 function setup()
 {

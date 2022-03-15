@@ -151,8 +151,10 @@
             //Await to complete minigame
             await until(() => json_session.playing == false);
 
+            //Complete Survey
+            if(json_session.progress >= 100) { SetResult(); return; };
+            
             //Swipe Delay
-            if(json_session.progress >= 100) { SendSurvey(); return; };
             await delay(time * 100);
 
             //Save Json Progress
@@ -194,7 +196,15 @@
 
     function SetResult()
     {
+        //colocar imagen y resultado
 
+        ChangeViewState(questionary, result);
+        SaveProgress();
+
+        orderArray(json_survey.answers);
+        console.log(json_survey);
+
+        if(!json_session.complete) SendSurvey();
     }
 
     //#endregion
@@ -308,6 +318,7 @@
     json_session.amount = [0, 0, 0, 0, 0, 0, 0];
 
     json_session.playing = false;
+    json_session.complete = false;
 
     json_session.total = 0;
     json_session.current = 0;
@@ -333,32 +344,31 @@
         }
         else
         {
-            ChangeViewState(questionary, result);
+            SetResult();
         }
+    }
+    else
+    {
+        ChangeViewState(loginLoad, loginContainer);
     }
     //#endregion
 
     //#region Modify Json
-    const AddAnswer = (id, value) =>
-    {
-        json_survey.answers.push(
-        {
-            "question_id" : id,
-            "answer": value
-        });
-    };
-    const AddCategory = (id) =>
-    {
-        const index = json_session.category.indexOf(id);
-        json_session.amount[index] += 1;
-        // console.log(json_session.amount);
-
-        SelectVocation();
-    };
-    const SaveProgress = () =>
+    function SaveProgress()
     {
         window.sessionStorage.setItem('survey', JSON.stringify(json_survey));
         window.sessionStorage.setItem('progress', JSON.stringify(json_session));
+    };
+    function AddCategory(id)
+    {
+        const index = json_session.category.indexOf(id);
+        json_session.amount[index] += 1;
+        console.log(json_session.amount);
+        SelectVocation();
+    };
+    function AddAnswer(id, value)
+    {
+        json_survey.answers.push({ "question_id" : id, "answer": value });
     };
     //#endregion
     //#region Fetch HTTPS
@@ -390,7 +400,6 @@
             
             //Random Questions
             shuffleArray(json_session.questions);
-            // console.log(json_session.questions);
 
             if(json_session.questions.length != 0)
             {
@@ -400,6 +409,7 @@
             }
             else
             {
+                ChangeViewState(loginLoad, loginView);
                 errorMessage.innerHTML = 'Survey Error';
             }
         })
@@ -411,20 +421,24 @@
     }
     function SendSurvey ()
     {
-        ChangeViewState(questionary, result);
-        SaveProgress();
-
-        orderArray(json_survey.answers);
-        console.log(json_survey);
-
-        // fetch('https://tlsvocacional.renzoguido.com/api/survey',
-        // {
-        //     method: 'POST',
-        //     headers: { 'Content-type': 'application/json' },
-        //     body: JSON.stringify(json_survey)
-        // })
-        // .then((response) => response.json())
-        // .then((values) => console.log(values));
+        fetch('https://tlsvocacional.renzoguido.com/api/survey',
+        {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify(json_survey)
+        })
+        .then((response) => response.json())
+        .then((values) =>
+        {
+            json_session.complete = true;
+            console.log(values);
+            SaveProgress();
+        })
+        .catch(error =>
+        {
+            console.error(error);
+            if(!alert('Connection Error')) window.location.reload();
+        });
     }
     //#endregion
 
