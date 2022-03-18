@@ -1,36 +1,113 @@
+const path = "https://dazzling-cray-d6262f.netlify.app";
+
+//#region --------------------Elements---------------------
+
+    //#region Login
+
+        //Container
+        const loginView = document.getElementById('login');
+
+        const loginLoad = document.getElementById('loading');
+        const loginContainer = document.getElementById('login-container');
+
+        //Inputs
+        const nameField = document.getElementById('first-name');
+        const lastNameField = document.getElementById('last-name');
+        const codeField = document.getElementById('code');
+        const emailField = document.getElementById('email');
+
+        //Log
+        const errorMessage = document.getElementById('error-message');
+
+    //#endregion
+    //#region Survey
+
+        const surveyView = document.getElementById('survey');
+        
+        //#region Category
+
+            //Username
+            const textContainer = document.getElementById('text-container');
+            const username = document.getElementById('username');
+
+            //List
+            const list = document.querySelectorAll('.list');
+
+        //#endregion
+        
+        //#region Tutorial
+
+            const tutorialView = document.getElementById('tutorial');
+
+        //#endregion
+        //#region Questions
+
+            //Container
+            const questionary = document.getElementById('questionary');
+            const game = document.getElementById('minigame');
+
+            //Progress Bar
+            const percent = document.getElementById("amount");
+            const levels = document.getElementsByClassName("progress");
+            const bar = document.getElementById("fill-amount");
+
+            //Box
+            const qBox = document.getElementById("question-box");
+            const box1 = qBox.firstElementChild;
+            const box2 = qBox.lastElementChild;
+
+        //#endregion
+        //#region Result
+
+            const result = document.getElementById('result');
+
+            const rTittle = document.getElementById('result-tittle');
+            const rImage = document.getElementById('result-image');
+            const rInfo = document.getElementById('result-info');
+
+        //#endregion
+
+    //#endregion
+
+//#endregion
+
 //#region ----------------------HTML-----------------------
 
-    //#region ----Basic
+    //#region -----Category-----
 
-        //Numeric Input Field
-        const numericInputs = document.getElementsByClassName('numeric');
-        var invalidInputs = ["-", "+", "e", "."];
+    //Set Images
+    // for(let i = 1; i < 7; i++)
+    // {
+    //     list[i].firstChild.src = path + "/assets/header/Imagen" + i + ".png";
+    // }
 
-        const InvalidInput = (e) => { if(invalidInputs.includes(e.key)) e.preventDefault(); };
-        numericInputs.forEach(i => i.addEventListener("keydown", InvalidInput));
+    //#endregion 
+    //#region ------Inputs------
+    
+        //Login
+        document.getElementsByClassName('numeric').forEach(i => i.addEventListener("keydown", InvalidInput));
+        document.getElementById('login-button').addEventListener('click', LogIn);
+
+        //Tutorial
+        document.getElementById('tutorial-button').addEventListener('click', Tutorial);
+
+        //Gameplay
+        document.getElementById('shoot').addEventListener('click', () => Shoot());
         
-        //Email Validation
-        const ValidEmail = (mail) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+        //Swipe Buttons
+        document.getElementById("left").addEventListener('click', () => Swipe(-1, 0, 0.5));
+        document.getElementById("right").addEventListener('click', () => Swipe(1, 0, 0.5));
+
+        document.addEventListener('keydown', (event) =>
+        {
+            let key = event.key;
+            if(key === 'ArrowLeft') Swipe(-1, 0, 0.5);
+            else if(key === 'ArrowRight') Swipe(1, 0, 0.5);
+        });
 
     //#endregion
 
     //#region ----Fade Scenes----
-
-        //#region Main Scenes
-        const loginView = document.getElementById('login');
-        const tutorialView = document.getElementById('tutorial');
-        const surveyView = document.getElementById('survey');
-        //#endregion
-        //#region Sub Scenes
-        //Login
-        const loginContainer = document.getElementById('login-container');
-        const loginLoad = document.getElementById('loading');
-
-        //Questionary
-        const questionary = document.getElementById('questionary');
-        const game = document.getElementById('minigame');
-        const result = document.getElementById('result');
-        //#endregion
 
         function ChangeViewState(from, to)
         {
@@ -42,19 +119,19 @@
 
     //#region ----Category----
 
-        const textContainer = document.getElementById('text-container');
-        const username = document.getElementById('username');
-        const list = document.querySelectorAll('.list');
-
         function SetUsername(string)
         {
             username.innerHTML = string.toString();
             textFit(textContainer);
         }
-        function SelectVocation()
+        function GetVocation()
         {
             const max = Math.max.apply(null, json_session.amount);
-            const index = json_session.amount.indexOf(max);
+            return index = json_session.amount.indexOf(max);
+        }
+        function SelectVocation()
+        {
+            const index = GetVocation();
 
             for(i = 0; i < list.length; i++)
             {
@@ -66,12 +143,6 @@
     //#endregion
 
     //#region ----Progress Bar----
-
-        //#region Elements
-        const percent = document.getElementById("amount");
-        const levels = document.getElementsByClassName("progress");
-        const bar = document.getElementById("fill-amount");
-        //#endregion
 
         function SetProgressBar(validate)
         {
@@ -95,11 +166,6 @@
 
     //#region ----Minigame----
 
-        //#region Button
-        const shootButton = document.getElementById('shoot'); 
-        shootButton.addEventListener('click', () => Shoot());
-        //#endregion
-
         function SetMiniGame()
         {
             if(!json_session.playing) return;
@@ -117,12 +183,6 @@
     //#endregion
 
     //#region ----Question Box----
-
-        //#region Elements
-        const qBox = document.getElementById("question-box");
-        const box1 = qBox.firstElementChild;
-        const box2 = qBox.lastElementChild;
-        //#endregion
 
         let currentBox = 0;
 
@@ -177,25 +237,12 @@
 
     //#endregion
 
-    //#region ----Select Buttons----
-    const leftButton = document.getElementById("left");
-    const rightButton = document.getElementById("right");
-
-    leftButton.addEventListener('click', () => Swipe(-1, 0, 0.5));
-    rightButton.addEventListener('click', () => Swipe(1, 0, 0.5));
-
-    document.addEventListener('keydown', (event) =>
-    {
-        let key = event.key;
-        if(key === 'ArrowLeft') Swipe(-1, 0, 0.5);
-        else if(key === 'ArrowRight') Swipe(1, 0, 0.5);
-    });
-    //#endregion
-
     //#region ----Result----
 
     function SetResult()
     {
+        const index = GetVocation() + 1;
+        rImage.src = /*path +*/ "../assets/header/Imagen" + index + ".svg";
         //colocar imagen y resultado
 
         ChangeViewState(questionary, result);
@@ -212,19 +259,6 @@
 //#endregion
 
 //#region ----------------------LOGIN----------------------
-
-    //#region Input Fields
-    const nameField = document.getElementById('first-name');
-    const lastNameField = document.getElementById('last-name');
-    const codeField = document.getElementById('code');
-    const emailField = document.getElementById('email');
-
-    const errorMessage = document.getElementById('error-message');
-    //#endregion
-    //#region Login Button
-    const loginButton = document.getElementById('login-button');
-    loginButton.addEventListener('click', LogIn);
-    //#endregion
 
     let user = {};
 
@@ -283,18 +317,10 @@
             ChangeViewState(loginLoad, loginContainer);
         });
     }
-
-    //#region Tutorial
-
-    const tutorialButton = document.getElementById('tutorial-button');
-    tutorialButton.addEventListener('click', CloseTutorial);
-
-    function CloseTutorial()
+    function Tutorial()
     {
         ChangeViewState(tutorialView, null);
     }
-
-    //#endregion
 
 //#endregion
 

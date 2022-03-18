@@ -92,12 +92,14 @@ input::-webkit-inner-spin-button
 
     .enable
     {
+        pointer-events: all;
         animation-name: fade-in;
         animation-duration: var(--t);
         animation-fill-mode: both;
     }
     .disable
     {
+        pointer-events: none;
         animation-name: fade-out;
         animation-duration: var(--t);
         animation-fill-mode: both;
