@@ -73,6 +73,10 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
 
 //#region ----------------------HTML-----------------------
 
+    let documentJson = "";
+    fetch(path + '/json/index.json', { method:'GET', headers: { 'Content-type': 'application/json' } })
+    .then((response) => response.json()).then((result) => documentJson = result);
+
     //#region -----Category-----
 
     //Set Images
@@ -98,11 +102,23 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
         document.getElementById("left").addEventListener('click', () => Swipe(-1, 0, 0.5));
         document.getElementById("right").addEventListener('click', () => Swipe(1, 0, 0.5));
 
+        let press = false;
         document.addEventListener('keydown', (event) =>
         {
-            let key = event.key;
-            if(key === 'ArrowLeft') Swipe(-1, 0, 0.5);
-            else if(key === 'ArrowRight') Swipe(1, 0, 0.5);
+            if(!press)
+            {
+                let key = event.key;
+                if(key === 'ArrowLeft') { Swipe(-1, 0, 0.5); press = true; }
+                else if(key === 'ArrowRight') { Swipe(1, 0, 0.5); press = true; }
+            }
+        });
+        document,addEventListener('keyup', (event) =>
+        {
+            if(press)
+            {
+                let key = event.key;
+                if(key === 'ArrowLeft' || key === 'ArrowRight') press = false;
+            }
         });
 
     //#endregion
@@ -242,9 +258,12 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
     function SetResult()
     {
         const index = GetVocation() + 1;
-        rImage.src = /*path +*/ "../assets/header/Imagen" + index + ".svg";
-        //colocar imagen y resultado
 
+        rTittle.innerHTML = documentJson.category[index].name;
+        rInfo.innerHTML = documentJson.category[index].info;
+
+        rImage.src = /*path +*/ "../assets/header/Imagen" + index + ".svg";
+        
         ChangeViewState(questionary, result);
         SaveProgress();
 
