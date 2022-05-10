@@ -74,7 +74,7 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
 //#region ----------------------HTML-----------------------
 
     let documentJson = "";
-    fetch(path + '/json/index.json', { method:'GET', headers: { 'Content-type': 'application/json' } })
+    fetch(/*path +*/ '/json/index.json', { method:'GET', headers: { 'Content-type': 'application/json' } })
     .then((response) => response.json()).then((result) => documentJson = result);
 
     //#region -----Category-----

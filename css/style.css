@@ -635,7 +635,7 @@ input::-webkit-inner-spin-button
         }
         #result img
         {
-            min-height: 250px;
+            max-height: 250px;
             justify-self: center;
             grid-area: 2 / 1 / 3 / 2;
         }
