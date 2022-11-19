@@ -73,7 +73,7 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
 
 //#region ----------------------HTML-----------------------
 
-    let documentJson = "";
+    let documentJson = window.sessionStorage.getItem('document') == "" ? "" : JSON.parse(window.sessionStorage.getItem('document'));
     fetch(/*path +*/ '/json/index.json', { method:'GET', headers: { 'Content-type': 'application/json' } })
     .then((response) => response.json()).then((result) => documentJson = result);
 
@@ -112,7 +112,7 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
                 else if(key === 'ArrowRight') { Swipe(1, 0, 0.5); press = true; }
             }
         });
-        document,addEventListener('keyup', (event) =>
+        document.addEventListener('keyup', (event) =>
         {
             if(press)
             {
@@ -215,6 +215,7 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
             //Add progress amount
             json_session.current++;
             json_session.progress += 100 / json_session.total;
+            json_session.progress = Math.round(json_session.progress);
             SetProgressBar(true);
             SetMiniGame();
 
@@ -268,8 +269,6 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
         SaveProgress();
 
         orderArray(json_survey.answers);
-        console.log(json_survey);
-
         if(!json_session.complete) SendSurvey();
     }
 
@@ -310,31 +309,31 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
         ChangeViewState(loginContainer, loginLoad);
         //#endregion
 
-        fetch('https://tlsvocacional.renzoguido.com/api/check/student',
-        {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(user)
-        })
-        .then((response) => response.json())
-        .then((result) =>
-        {
-            if(result.code == 1)
-            {
+        // fetch('https://tlsvocacional.renzoguido.com/api/check/student',
+        // {
+        //     method: 'POST',
+        //     headers: { 'Content-type': 'application/json' },
+        //     body: JSON.stringify(user)
+        // })
+        // .then((response) => response.json())
+        // .then((result) =>
+        // {
+            // if(result.code == 1)
+            // {
                 SetUsername(user.name + " " + user.lastName);
                 GetSurvey();
-            }
-            else
-            {
-                errorMessage.innerHTML = 'Survey Already Completed';
-                ChangeViewState(loginLoad, loginContainer);
-            }
-        })
-        .catch(error =>
-        {
-            errorMessage.innerHTML = error.text;
-            ChangeViewState(loginLoad, loginContainer);
-        });
+            // }
+            // else
+            // {
+            //     errorMessage.innerHTML = 'Survey Already Completed';
+            //     ChangeViewState(loginLoad, loginContainer);
+            // }
+        // })
+        // .catch(error =>
+        // {
+        //     errorMessage.innerHTML = error.text;
+        //     ChangeViewState(loginLoad, loginContainer);
+        // });
     }
     function Tutorial()
     {
@@ -370,6 +369,7 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
     json_session.progress = 0;
     //#endregion
 
+    //set gameplay number
     let gameQuestions = 6;
 
     //#region Get Session Data
@@ -383,7 +383,7 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
         SetProgressBar(false);
         ChangeViewState(loginView, surveyView);
         
-        if(json_session.current < json_session.questions.length - 1)
+        if(json_session.current < json_session.total - 1)
         {
             SetBoxText(box1, json_session.questions[json_session.current].title);
         }
@@ -403,12 +403,12 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
     {
         window.sessionStorage.setItem('survey', JSON.stringify(json_survey));
         window.sessionStorage.setItem('progress', JSON.stringify(json_session));
+        window.sessionStorage.setItem('document', JSON.stringify(documentJson));
     };
     function AddCategory(id)
     {
         const index = json_session.category.indexOf(id);
         json_session.amount[index] += 1;
-        console.log(json_session.amount);
         SelectVocation();
     };
     function AddAnswer(id, value)
@@ -424,7 +424,7 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
         json_survey.name = user.name + " " + user.lastName;
         json_survey.email = user.email;
 
-        fetch('https://tlsvocacional.renzoguido.com/api/survey',
+        fetch(/*'https://tlsvocacional.renzoguido.com/api/survey'*/ '/json/preguntas.json',
         {
             method: 'GET',
             headers: { 'Content-type': 'application/json' }
@@ -466,24 +466,24 @@ const path = "https://dazzling-cray-d6262f.netlify.app";
     }
     function SendSurvey ()
     {
-        fetch('https://tlsvocacional.renzoguido.com/api/survey',
-        {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify(json_survey)
-        })
-        .then((response) => response.json())
-        .then((values) =>
-        {
+        // fetch('https://tlsvocacional.renzoguido.com/api/survey',
+        // {
+        //     method: 'POST',
+        //     headers: { 'Content-type': 'application/json' },
+        //     body: JSON.stringify(json_survey)
+        // })
+        // .then((response) => response.json())
+        // .then((values) =>
+        // {
             json_session.complete = true;
-            console.log(values);
+        //     console.log(values);
             SaveProgress();
-        })
-        .catch(error =>
-        {
-            console.error(error);
-            if(!alert('Connection Error')) window.location.reload();
-        });
+        // })
+        // .catch(error =>
+        // {
+        //     console.error(error);
+        //     if(!alert('Connection Error')) window.location.reload();
+        // });
     }
     //#endregion
 
